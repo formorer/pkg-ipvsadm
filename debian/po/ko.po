@@ -1,0 +1,136 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
+"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=EUC-KR\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+#, fuzzy
+#| msgid "none, master, backup"
+msgid "none, master, backup, both"
+msgstr "none, master, backup"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+#, fuzzy
+#| msgid "Select a daemon method."
+msgid "Daemon method:"
+msgstr "대몬 방식을 선택하십시오."
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+#, fuzzy
+#| msgid ""
+#| "ipvsadm can activate the IPVS synchronization daemon. \"master\" starts "
+#| "this daemon in master mode, \"backup\" in backup mode. \"none\" disables "
+#| "the daemon."
+msgid ""
+"ipvsadm can activate the IPVS synchronization daemon. \"master\" starts this "
+"daemon in master mode, \"backup\" in backup mode and \"both\" uses master "
+"and backup mode at the same time. \"none\" disables the daemon."
+msgstr ""
+"ipvsadm는 커널의 IPVS 동기화 대몬을 활성화, 비활성화 시킬 수 있습니다. "
+"master, backup는 그 모드로 대몬을 활성화 시킵니다, 이 기능이 필요 없다면 "
+"\"none\"을 선택하십시오."
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid "See the man page for more details, ipvsadm(8)."
+msgstr "더 자세한 사항은 맨 페이지 ipvsadm(8)을 참조하십시오."
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+#, fuzzy
+#| msgid "Kernel does not support IPVS."
+msgid "Kernel does not support IPVS"
+msgstr "커널이 IPVS을 지원하지 않습니다."
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+#, fuzzy
+msgid ""
+"ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS "
+"modules, otherwise this software is pretty useless."
+msgstr ""
+"이 도구를 쓰기위해서는 커널이 IPVS 기능을 지원해야합니다. kernel-patch-2.4-"
+"ipvs 패키지를 설치하거나, http://www.linux-vs.org/software/index.html에서 패"
+"치를 구해서 커널에 적용시킨 후, 커널을 새로 빌드해야합니다. 모듈로 포함시켰다"
+"면 적재하십시오."
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+msgid "Do you want to automatically load IPVS rules on boot?"
+msgstr "초기화 스크립트에서 자동 규칙로딩 기능을 쓰겠습니까?"
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+#, fuzzy
+#| msgid ""
+#| "If you choose this option your IPVS rules will be saved to and loaded "
+#| "from /etc/ipvsadm.rules automatically on shutdown resp. boot."
+msgid ""
+"If you choose this option your IPVS rules will be loaded from /etc/ipvsadm."
+"rules automatically on boot."
+msgstr ""
+"이 기능을 쓰면 /etc/ipvsadm.rules라는 파일에 저장된 ipvs 규칙들을 초기화 스크"
+"립트를 시작할 때. 자동으로 로딩합니다. 만약 다른 ipvs 관리도구를 사용한다면 "
+"이 기능을 쓰지 마십시오."
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "Multicast interface for ipvsadm:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid ""
+"Select the multicast interface to be used by synchronization daemon. e.g. "
+"eth0, eth1..."
+msgstr ""
+"동기화 대몬이 사용할 멀티캐스트 인터페이스를 입력하십시오. 그 예로는 eth0, "
+"eth1, ... 등이 있습니다."
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "${interface_error}"
+msgstr "${interface_error}"
+
+#, fuzzy
+#~| msgid "Enter the multicast interface that sync daemon uses."
+#~ msgid "Which multicast interface should the daemon use"
+#~ msgstr "동기화 대몬이 사용할 멀티캐스트 인터페이스를 입력하십시오."
+
+#~ msgid "eth0"
+#~ msgstr "eth0"

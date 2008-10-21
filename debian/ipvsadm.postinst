@@ -1,0 +1,45 @@
+#!/bin/sh
+
+set -e
+
+IPVSADM_CONFIG=/etc/default/ipvsadm
+
+if [ "$1" = "configure" ]; then
+    if . /usr/share/debconf/confmodule; then
+	db_version 2.0
+
+	db_get ipvsadm/auto_load_rules; AUTO="$RET"
+	db_get ipvsadm/daemon_method; DAEMON="$RET"
+	db_get ipvsadm/daemon_multicast_interface; IFACE="$RET"
+
+        if which ipvsadm >/dev/null 2>&1; then
+            # Regardless of if ipvs is built into the kernel or built as a module,
+            # if it is part of the kernel at all, it will be available after this
+            ipvsadm -L -n > /dev/null 2>&1 || true
+        fi
+
+        if [ ! -f "/proc/net/ip_vs_conn" ]; then
+            db_fset ipvsadm/kernel_does_not_support_ipvs seen false
+            db_input high ipvsadm/kernel_does_not_support_ipvs || true
+            db_go
+            exit 0
+        fi
+
+	if [ "$DAEMON" = "none" ]; then
+	    cat > $IPVSADM_CONFIG <<EOF1
+# Do not edit! Use 'dpkg-reconfigure ipvsadm'.
+AUTO="$AUTO"
+DAEMON="$DAEMON"
+EOF1
+	else
+	    cat > $IPVSADM_CONFIG <<EOF2
+# Do not edit! Use 'dpkg-reconfigure ipvsadm'.
+AUTO="$AUTO"
+DAEMON="$DAEMON"
+IFACE="$IFACE"
+EOF2
+	fi
+    fi
+fi
+    
+#DEBHELPER#

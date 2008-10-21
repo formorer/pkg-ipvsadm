@@ -1,51 +1,27 @@
---------------------------------------------------------------------------
+This package was debianized by Alexander Wirt <formorer@debian.org> 
+based on work by  KiHyeon Seo <nefsall@kldp.org>. 
 
-ipvsadm - Version 1.14 - 11th January 2001
+It was downloaded from http://www.linux-vs.org/software/index.html
 
-This is free software.  See below for details.
+Upstream Author: Wensong Zhang <wensong@linuxvirtualserver.org>
+Copyright (c) 1998 Wensong Zhang
 
-ipvsadm is a utility to administer the IP virtual server services
-offered by the Linux kernel with IP virtual server support.
+Copyright:
 
-This version of ipvsadm requires IPVS module v0.0.5 for kernel 2.4 or
-later.  Check out the Linux Virtual Server Project home page on the
-World Wide Web:
-	http://www.LinuxVirtualServer.org/
-	or
-	http://www.Linux-VS.org/
-for the most recent information and original sources about ipvsadm.
+   This program is free software; you can redistribute it and/or modify
+   it under the terms of the GNU General Public License as published by
+   the Free Software Foundation; either version 2 of the License, or
+   (at your option) any later version.
+   
+   This program is distributed in the hope that it will be useful,
+   but WITHOUT ANY WARRANTY; without even the implied warranty of
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+   GNU General Public License for more details.
+   
+   You should have received a copy of the GNU General Public License
+   along with this program; if not, write to the Free Software 
+   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston,
+   MA 02110-1301 USA.
 
-To make, make sure your Linux kernel is already patched with IPVS and 
-"make menuconfig" or "make xconfig" to setup the right compiling options, 
-see the README of the virtual server patch for detail, then simply type
-	make
-in the source directory.
-
-Install to your liking.  We suggest the following pathnames:
-	/sbin/ipvsadm
-	/usr/man/man8/ipvsadm.8
-This will be done automatically when calling
-	make install
-in the source directory.
-
-
-Wensong Zhang <wensong@linuxvirtualserver.org>
-
-
---------------------------------------------------------------------------
-
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation; either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
-
---------------------------------------------------------------------
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in `/usr/share/common-licenses/GPL'.

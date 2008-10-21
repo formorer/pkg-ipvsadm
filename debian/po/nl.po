@@ -1,0 +1,112 @@
+#
+#    Translators, if you are not familiar with the PO format, gettext
+#    documentation is worth reading, especially sections dedicated to
+#    this format, e.g. by running:
+#         info -n '(gettext)PO Files'
+#         info -n '(gettext)Header Entry'
+#
+#    Some information specific to po-debconf are available at
+#            /usr/share/doc/po-debconf/README-trans
+#         or http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+#    Developers do not need to manually edit POT or PO files.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ipvsadm 1.24-1\n"
+"Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
+"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"PO-Revision-Date: 2008-04-07 19:11+0100\n"
+"Last-Translator: Bart Cornelis <cobaco@skolelinux.no>\n"
+"Language-Team: Debian l10n Dutch <debian-l10n-dutch@lists.debian.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Dutch\n"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "none, master, backup, both"
+msgstr "geen, primair, reserve, beide"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid "Daemon method:"
+msgstr "Achtergronddienst-methode:"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid ""
+"ipvsadm can activate the IPVS synchronization daemon. \"master\" starts this "
+"daemon in master mode, \"backup\" in backup mode and \"both\" uses master "
+"and backup mode at the same time. \"none\" disables the daemon."
+msgstr ""
+"ipvsadm kan de IPVS-synchronisatie-achtergronddienst activeren. 'primair' "
+"start deze achtergronddienst in primaire modus, 'reserve' in reserve-modus, "
+"en 'beide' gebruikt zowel de primaire als de reserve-modus. 'geen' schakelt "
+"de achtergronddienst uit."
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid "See the man page for more details, ipvsadm(8)."
+msgstr "Meer informatie vindt u in de man-pagina ipvsadm(8)."
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+msgid "Kernel does not support IPVS"
+msgstr "Uw kernel ondersteunt geen IPVS."
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+msgid ""
+"ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS "
+"modules, otherwise this software is pretty useless."
+msgstr ""
+"ipvsadm vereist IPVS-ondersteuning in de kernel. Gelieve een kernel met IPVS-"
+"modules te gebruiken, anders is deze software nutteloos."
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+msgid "Do you want to automatically load IPVS rules on boot?"
+msgstr ""
+"Wilt u dat de IPVS-regels automatisch geladen tijdens het opstarten van de "
+"computer?"
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+msgid ""
+"If you choose this option your IPVS rules will be loaded from /etc/ipvsadm."
+"rules automatically on boot."
+msgstr ""
+"Als u deze optie kiest zullen uw IPVS-regels tijdens het opstarten van de "
+"machine automatisch geladen worden uit /etc/ipvsadm.rules."
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "Multicast interface for ipvsadm:"
+msgstr "Multicast-interface voor ipvsadm:"
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid ""
+"Select the multicast interface to be used by synchronization daemon. e.g. "
+"eth0, eth1..."
+msgstr ""
+"Welke multicast-interface dient door de synchronisatie-achtergronddienst "
+"gebruikt te worden? (bijvoorbeeld eth0, eth1 ...)"
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "${interface_error}"
+msgstr "${interface_error}"

@@ -1,0 +1,92 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
+"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "none, master, backup, both"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid "Daemon method:"
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid ""
+"ipvsadm can activate the IPVS synchronization daemon. \"master\" starts this "
+"daemon in master mode, \"backup\" in backup mode and \"both\" uses master "
+"and backup mode at the same time. \"none\" disables the daemon."
+msgstr ""
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:1002
+msgid "See the man page for more details, ipvsadm(8)."
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+msgid "Kernel does not support IPVS"
+msgstr ""
+
+#. Type: note
+#. Description
+#: ../ipvsadm.templates:2001
+msgid ""
+"ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS "
+"modules, otherwise this software is pretty useless."
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+msgid "Do you want to automatically load IPVS rules on boot?"
+msgstr ""
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:3001
+msgid ""
+"If you choose this option your IPVS rules will be loaded from /etc/ipvsadm."
+"rules automatically on boot."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "Multicast interface for ipvsadm:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid ""
+"Select the multicast interface to be used by synchronization daemon. e.g. "
+"eth0, eth1..."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "${interface_error}"
+msgstr ""

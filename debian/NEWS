@@ -1,0 +1,10 @@
+ipvsadm (1:1.24-1) unstable; urgency=low
+
+  - This update removes support for kernels 2.2 and 2.4 as they aren't supported
+    on Debian anymore. 
+  - Since autosaving of rules is harmfull if you remove nodes on the fly at
+    the commandline (see #275986 and #337207) I decided to disable this
+    feature. If you want your rules to be saved please execute
+    "/etc/init.d/ipvsadm save". 
+
+ -- Alexander Wirt <formorer@debian.org>  Sun, 30 Mar 2008 17:59:33 +0200

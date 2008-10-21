@@ -1,0 +1,32 @@
+Template: ipvsadm/daemon_method
+Type: select
+_Choices: none, master, backup, both
+Default: none
+_Description: Daemon method:
+ ipvsadm can activate the IPVS synchronization daemon. "master" starts this
+ daemon in master mode, "backup" in backup mode and "both" uses master and
+ backup mode at the same time. "none" disables the daemon.
+ .
+ See the man page for more details, ipvsadm(8).
+
+Template: ipvsadm/kernel_does_not_support_ipvs
+Type: note
+_Description: Kernel does not support IPVS
+ ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS
+ modules, otherwise this software is pretty useless.
+
+Template: ipvsadm/auto_load_rules
+Type: boolean
+Default: false
+_Description: Do you want to automatically load IPVS rules on boot?
+ If you choose this option your IPVS rules will be loaded from
+ /etc/ipvsadm.rules automatically on boot.
+
+Template: ipvsadm/daemon_multicast_interface
+Type: string
+Default: eth0
+_Description: Multicast interface for ipvsadm:
+ Select the multicast interface to be used by synchronization daemon. e.g.
+ eth0, eth1...
+ .
+ ${interface_error}

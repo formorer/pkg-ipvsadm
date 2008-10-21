@@ -1,0 +1,7 @@
+# ipvsadm
+
+# daemon method (none|master|backup)
+DAEMON="none"
+
+# use interface (eth0,eth1...)
+IFACE="eth0"	
