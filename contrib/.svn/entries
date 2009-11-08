@@ -1,0 +1,40 @@
+8
+
+dir
+59
+http://svn.linuxvirtualserver.org/repos/ipvsadm/trunk/contrib
+http://svn.linuxvirtualserver.org/repos/ipvsadm
+
+
+
+2008-09-16T20:05:13.204297Z
+57
+vince
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+36f5d8da-7431-0410-8ca5-ec586ed2521a
+
+popt-optional.diff
+file
+
+
+
+
+2008-09-18T15:57:37.000000Z
+156796d622a14b58156af372b4e90987
+2008-09-16T20:05:13.204297Z
+57
+vince
+

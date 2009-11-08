@@ -1,21 +1,12 @@
 Source: ipvsadm
 Section: net
-Priority: extra
-Maintainer: Alexander Wirt <formorer@debian.org>
-Standards-Version: 3.7.3
-Build-Depends: debhelper (>= 5), libpopt-dev, po-debconf
+Priority: optional
+Maintainer: Horms <horms@vergenet.net>
+Standards-Version: 3.1.1
 
 Package: ipvsadm
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.0-6)
-Conflicts: lvs
-Replaces: lvs
-Suggests: heartbeat, keepalived, ldirectord
-Description: Linux Virtual Server support programs
- The Linux Virtual Server is a highly scalable and highly available server
- built on a cluster of real servers. The architecture of the cluster is
- transparent to end users, and the users see only a single virtual server.
- .
- This package provides some support programs necessary to implement a virtual
- server under Linux. With the addition of the mon and heartbeat packages it is
- possible to implement a complete high-availability solution for Linux.
+Depends: ${shlibs:Depends}
+Description:
+  ipvsadm is a utility to administer the IP virtual server services
+  offered by the Linux kernel augmented with the virtual server patch.
