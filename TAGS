@@ -1,0 +1,227 @@
+
+libipvs/libipvs.c,2163
+typedef struct ipvs_servicedest_s {ipvs_servicedest_s26,712
+	ipvs_service_t		svc;svc27,748
+	ipvs_dest_t		dest;dest28,770
+} ipvs_servicedest_t;ipvs_servicedest_t29,790
+static int sockfd = -1;sockfd31,813
+static void* ipvs_func = NULL;ipvs_func32,837
+struct ip_vs_getinfo ipvs_info;ipvs_info33,868
+int ipvs_init(void)ipvs_init36,902
+int ipvs_getinfo(void)ipvs_getinfo52,1163
+unsigned int ipvs_version(void)ipvs_version62,1325
+int ipvs_flush(void)ipvs_flush68,1390
+int ipvs_add_service(ipvs_service_t *svc)ipvs_add_service75,1491
+int ipvs_update_service(ipvs_service_t *svc)ipvs_update_service83,1660
+int ipvs_del_service(ipvs_service_t *svc)ipvs_del_service91,1836
+int ipvs_zero_service(ipvs_service_t *svc)ipvs_zero_service99,2005
+int ipvs_add_dest(ipvs_service_t *svc, ipvs_dest_t *dest)ipvs_add_dest107,2177
+int ipvs_update_dest(ipvs_service_t *svc, ipvs_dest_t *dest)ipvs_update_dest117,2417
+int ipvs_del_dest(ipvs_service_t *svc, ipvs_dest_t *dest)ipvs_del_dest127,2664
+int ipvs_set_timeout(ipvs_timeout_t *to)ipvs_set_timeout137,2904
+int ipvs_start_daemon(ipvs_daemon_t *dm)ipvs_start_daemon145,3074
+extern int ipvs_stop_daemon(ipvs_daemon_t *dm)ipvs_stop_daemon153,3249
+struct ip_vs_get_services *ipvs_get_services(void)ipvs_get_services161,3428
+typedef int (*qsort_cmp_t)(const void *, const void *);qsort_cmp_t182,3862
+ipvs_cmp_services(ipvs_service_entry_t *s1, ipvs_service_entry_t *s2)ipvs_cmp_services185,3923
+ipvs_sort_services(struct ip_vs_get_services *s, ipvs_service_cmp_t f)ipvs_sort_services206,4238
+struct ip_vs_get_dests *ipvs_get_dests(ipvs_service_entry_t *svc)ipvs_get_dests213,4408
+int ipvs_cmp_dests(ipvs_dest_entry_t *d1, ipvs_dest_entry_t *d2)ipvs_cmp_dests239,4912
+void ipvs_sort_dests(struct ip_vs_get_dests *d, ipvs_dest_cmp_t f)ipvs_sort_dests251,5101
+ipvs_get_service(__u32 fwmark, __u16 protocol, __u32 addr, __u16 port)ipvs_get_service259,5284
+ipvs_timeout_t *ipvs_get_timeout(void)ipvs_get_timeout283,5723
+ipvs_daemon_t *ipvs_get_daemon(void)ipvs_get_daemon302,6023
+void ipvs_close(void)ipvs_close323,6414
+const char *ipvs_strerror(int err)ipvs_strerror329,6458
+
+libipvs/Makefile,239
+CC		= gccCC3,24
+INCLUDE		= -I/usr/src/linux/includeINCLUDE4,34
+CFLAGS		= -Wall -Wunused -Wstrict-prototypes -g -O2CFLAGS5,70
+DEFINES		= $(shell if [ ! -f ../../ip_vs.h ]; then	\DEFINES9,205
+STATIC_LIB	= libipvs.aSTATIC_LIB13,349
+
+libipvs/libipvs.h,969
+#define _LIBIPVS_H_LIBIPVS_H11,209
+#define MINIMUM_IPVS_VERSION_MAJOR MINIMUM_IPVS_VERSION_MAJOR20,310
+#define MINIMUM_IPVS_VERSION_MINOR MINIMUM_IPVS_VERSION_MINOR21,352
+#define MINIMUM_IPVS_VERSION_PATCH MINIMUM_IPVS_VERSION_PATCH22,394
+#define IPVS_VERSION(IPVS_VERSION25,458
+#define IPVS_SVC_PERSISTENT_TIMEOUT	IPVS_SVC_PERSISTENT_TIMEOUT38,1044
+typedef struct ip_vs_service_user	ipvs_service_t;ipvs_service_t41,1089
+typedef struct ip_vs_dest_user		ipvs_dest_t;ipvs_dest_t42,1139
+typedef struct ip_vs_timeout_user	ipvs_timeout_t;ipvs_timeout_t43,1184
+typedef struct ip_vs_daemon_user	ipvs_daemon_t;ipvs_daemon_t44,1234
+typedef struct ip_vs_service_entry	ipvs_service_entry_t;ipvs_service_entry_t45,1282
+typedef struct ip_vs_dest_entry		ipvs_dest_entry_t;ipvs_dest_entry_t46,1339
+typedef int (*ipvs_service_cmp_t)(ipvs_service_entry_t *,ipvs_service_cmp_t99,2839
+typedef int (*ipvs_dest_cmp_t)(ipvs_dest_entry_t *,ipvs_dest_cmp_t110,3280
+
+Makefile,1203
+NAME		= ipvsadmNAME28,1090
+VERSION		= $(shell cat VERSION)VERSION29,1106
+RELEASE		= 5RELEASE30,1138
+SCHEDULERS	= "$(shell cat SCHEDULERS)"SCHEDULERS31,1151
+PROGROOT	= $(shell basename `pwd`)PROGROOT32,1190
+ARCH		= $(shell uname -m)ARCH33,1225
+CC		= gccCC35,1252
+INCLUDE		= -I/usr/src/linux/include -I.. -I.INCLUDE36,1262
+SBIN		= $(BUILD_ROOT)/sbinSBIN37,1307
+MANDIR		= usr/manMANDIR38,1334
+MAN		= $(BUILD_ROOT)/$(MANDIR)/man8MAN39,1352
+INIT		= $(BUILD_ROOT)/etc/rc.d/init.dINIT40,1388
+MKDIR		= mkdirMKDIR41,1426
+INSTALL		= installINSTALL42,1441
+STATIC_LIBS	= libipvs/libipvs.aSTATIC_LIBS43,1460
+    CFLAGS = -Wall -Wunused -Wstrict-prototypes -g -O2 -m64 -pipe -mcpu=ultrasparc -mcmodel=medlowCFLAGS46,1518
+    CFLAGS = -Wall -Wunused -Wstrict-prototypes -g -O2CFLAGS48,1622
+RPMBUILD = $(shell				\RPMBUILD55,1762
+LIB_SEARCH = /lib /usr/lib /usr/local/libLIB_SEARCH63,1918
+POPT_LIB = $(shell for i in $(LIB_SEARCH); do \POPT_LIB64,1960
+POPT_DEFINE = -DHAVE_POPTPOPT_DEFINE74,2176
+OBJS		= ipvsadm.o config_stream.o dynamic_array.oOBJS77,2209
+LIBS		= $(POPT_LIB)LIBS78,2259
+DEFINES		= -DVERSION=\"$(VERSION)\" -DSCHEDULERS=\"$(SCHEDULERS)\" \DEFINES79,2279
+
+config_stream.c,88
+config_stream_read(FILE * stream, const char *first_element)config_stream_read31,1091
+
+config_stream.h,101
+#define CONFIG_STREAM_FLIMCONFIG_STREAM_FLIM11,238
+#define MAX_LINE_LENGTH MAX_LINE_LENGTH15,294
+
+dynamic_array.c,648
+dynamic_array_create(size_t block_size)dynamic_array_create29,1009
+dynamic_array_destroy(dynamic_array_t * a,dynamic_array_destroy61,1964
+dynamic_array_add_element(dynamic_array_t * a,dynamic_array_add_element96,3301
+dynamic_array_display(dynamic_array_t * a,dynamic_array_display141,4814
+dynamic_array_get_element(dynamic_array_t * a, size_t elementno)dynamic_array_get_element194,6249
+dynamic_array_get_count(dynamic_array_t * a)dynamic_array_get_count211,6747
+dynamic_array_get_vector(dynamic_array_t * a)dynamic_array_get_vector228,7165
+dynamic_array_split_str(char *string, const char delimiter)dynamic_array_split_str249,7777
+
+dynamic_array.h,471
+#define DYNAMIC_ARRAY_FLIMDYNAMIC_ARRAY_FLIM15,487
+#define DEFAULT_DYNAMIC_ARRAY_BLOCK_SIZE DEFAULT_DYNAMIC_ARRAY_BLOCK_SIZE27,687
+#define DESTROY_STR DESTROY_STR31,788
+#define DUP_STR DUP_STR32,832
+#define DISPLAY_STR DISPLAY_STR33,881
+#define LEN_STR LEN_STR34,936
+  void **vector;vector38,999
+  size_t count;count39,1016
+  size_t allocated_size;allocated_size40,1032
+  size_t block_size;block_size41,1057
+} dynamic_array_t;dynamic_array_t42,1078
+
+ipvsadm.c,6034
+#undef __KERNEL__	__KERNEL__91,4663
+#define IPVS_OPTION_PROCESSING	IPVS_OPTION_PROCESSING115,5187
+#define IPVS_OPTION_PROCESSING	IPVS_OPTION_PROCESSING117,5231
+#define IPVSADM_VERSION_NO	IPVSADM_VERSION_NO123,5341
+#define IPVSADM_VERSION_DATE	IPVSADM_VERSION_DATE124,5380
+#define IPVSADM_VERSION	IPVSADM_VERSION125,5422
+#define MAX_TIMEOUT	MAX_TIMEOUT127,5492
+#define CMD_NONE	CMD_NONE129,5539
+#define CMD_ADD	CMD_ADD130,5559
+#define CMD_EDIT	CMD_EDIT131,5590
+#define CMD_DEL	CMD_DEL132,5621
+#define CMD_FLUSH	CMD_FLUSH133,5652
+#define CMD_LIST	CMD_LIST134,5684
+#define CMD_ADDDEST	CMD_ADDDEST135,5715
+#define CMD_DELDEST	CMD_DELDEST136,5749
+#define CMD_EDITDEST	CMD_EDITDEST137,5783
+#define CMD_TIMEOUT	CMD_TIMEOUT138,5818
+#define CMD_STARTDAEMON	CMD_STARTDAEMON139,5852
+#define CMD_STOPDAEMON	CMD_STOPDAEMON140,5891
+#define CMD_RESTORE	CMD_RESTORE141,5929
+#define CMD_SAVE	CMD_SAVE142,5964
+#define CMD_ZERO	CMD_ZERO143,5996
+#define CMD_MAX	CMD_MAX144,6028
+#define NUMBER_OF_CMD	NUMBER_OF_CMD145,6055
+static const char* cmdnames[] = {cmdnames147,6100
+#define OPT_NONE	OPT_NONE164,6329
+#define OPT_NUMERIC	OPT_NUMERIC165,6355
+#define OPT_CONNECTION	OPT_CONNECTION166,6384
+#define OPT_SERVICE	OPT_SERVICE167,6416
+#define OPT_SCHEDULER	OPT_SCHEDULER168,6445
+#define OPT_PERSISTENT	OPT_PERSISTENT169,6476
+#define OPT_NETMASK	OPT_NETMASK170,6508
+#define OPT_SERVER	OPT_SERVER171,6537
+#define OPT_FORWARD	OPT_FORWARD172,6565
+#define OPT_WEIGHT	OPT_WEIGHT173,6594
+#define OPT_UTHRESHOLD	OPT_UTHRESHOLD174,6622
+#define OPT_LTHRESHOLD	OPT_LTHRESHOLD175,6654
+#define OPT_MCAST	OPT_MCAST176,6686
+#define OPT_TIMEOUT	OPT_TIMEOUT177,6713
+#define OPT_DAEMON	OPT_DAEMON178,6742
+#define OPT_STATS	OPT_STATS179,6770
+#define OPT_RATE	OPT_RATE180,6797
+#define OPT_THRESHOLDS	OPT_THRESHOLDS181,6823
+#define OPT_PERSISTENTCONN	OPT_PERSISTENTCONN182,6855
+#define OPT_SORT	OPT_SORT183,6890
+#define OPT_SYNCID	OPT_SYNCID184,6916
+#define NUMBER_OF_OPT	NUMBER_OF_OPT185,6944
+static const char* optnames[] = {optnames187,6971
+static const char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =commands_v_options218,7478
+#define FMT_NONE	FMT_NONE238,9285
+#define FMT_NUMERIC	FMT_NUMERIC239,9310
+#define FMT_RULE	FMT_RULE240,9338
+#define FMT_STATS	FMT_STATS241,9363
+#define FMT_RATE	FMT_RATE242,9389
+#define FMT_THRESHOLDS	FMT_THRESHOLDS243,9414
+#define FMT_PERSISTENTCONN	FMT_PERSISTENTCONN244,9445
+#define FMT_SORT	FMT_SORT245,9479
+#define SERVICE_NONE	SERVICE_NONE247,9505
+#define SERVICE_ADDR	SERVICE_ADDR248,9534
+#define SERVICE_PORT	SERVICE_PORT249,9563
+#define DEF_SCHED	DEF_SCHED252,9617
+#define DEF_MCAST_IFN	DEF_MCAST_IFN255,9682
+#define CONN_PROC_FILE	CONN_PROC_FILE257,9713
+struct ipvs_command_entry {ipvs_command_entry259,9761
+	int			cmd;cmd260,9789
+	ipvs_service_t		svc;svc261,9801
+	ipvs_dest_t		dest;dest262,9823
+	ipvs_timeout_t		timeout;timeout263,9843
+	ipvs_daemon_t		daemon;daemon264,9869
+int main(int argc, char **argv)main308,11704
+parse_options(int argc, char **argv, struct ipvs_command_entry *ce,parse_options342,12381
+parse_options(int argc, char **argv, struct ipvs_command_entry *ce,parse_options635,20583
+static int restore_table(int argc, char **argv, int reading_stdin)restore_table919,27741
+static int process_options(int argc, char **argv, int reading_stdin)process_options939,28205
+static int string_to_number(const char *s, int min, int max)string_to_number1067,31297
+static int parse_timeout(char *buf, int min, int max)parse_timeout1086,31647
+static unsigned int parse_fwmark(char *buf)parse_fwmark1104,31994
+static int parse_netmask(char *buf, u_int32_t *addr)parse_netmask1124,32331
+parse_service(char *buf, u_int16_t proto, u_int32_t *addr, u_int16_t *port)parse_service1150,32802
+generic_opt_check(int command, int options)generic_opt_check1189,33548
+opt2name(int option)opt2name1223,34396
+set_command(int *cmd, const int newcmd)set_command1232,34524
+set_option(unsigned int *options, unsigned int option)set_option1240,34662
+static void tryhelp_exit(const char *program, const int exit_status)tryhelp_exit1248,34832
+static void usage_exit(const char *program, const int exit_status)usage_exit1256,35019
+static void version_exit(const int exit_status)version_exit1338,38860
+static void version(FILE *stream)version1353,39037
+static void fail(int err, char *msg, ...)fail1362,39226
+static int modprobe_ipvs(void)modprobe_ipvs1374,39393
+static void check_ipvs_version(void)check_ipvs_version1396,39701
+static void print_conn(char *buf, unsigned int format)print_conn1416,40238
+void list_conn(unsigned int format)list_conn1471,41576
+static inline char *fwd_name(unsigned flags)fwd_name1504,42274
+static inline char *fwd_switch(unsigned flags)fwd_switch1525,42615
+static void print_largenum(unsigned long long i)print_largenum1542,42918
+static void print_title(unsigned int format)print_title1557,43371
+print_service_entry(ipvs_service_entry_t *se, unsigned int format)print_service_entry1586,44431
+static void list_service(ipvs_service_t *svc, unsigned int format)list_service1712,47960
+static void list_all(unsigned int format)list_all1728,48298
+void list_timeout(void)list_timeout1752,48829
+static void list_daemon(void)list_daemon1764,49042
+int host_to_addr(const char *name, struct in_addr *addr)host_to_addr1781,49415
+static char * addr_to_host(struct in_addr *addr)addr_to_host1797,49787
+static char * addr_to_anyname(struct in_addr *addr)addr_to_anyname1809,50019
+int service_to_port(const char *name, unsigned short proto)service_to_port1820,50181
+static char * port_to_service(unsigned short port, unsigned short proto)port_to_service1835,50560
+static char * port_to_anyname(unsigned short port, unsigned short proto)port_to_anyname1850,50929
+addrport_to_anyname(struct in_addr *addr, unsigned short port,addrport_to_anyname1865,51178
+static int str_is_digit(const char *str)str_is_digit1885,51550
+
+ipvsadm.sh,0
