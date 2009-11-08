@@ -1,3 +1,9 @@
+ipvsadm (1:1.25) unstable; urgency=low
+
+  * New upstream version 
+
+ -- Alexander Wirt <formorer@debian.org>  Sun, 08 Nov 2009 14:16:20 +0100
+
 ipvsadm (1:1.24-2.1) unstable; urgency=low
 
   * Non-maintainer upload.
