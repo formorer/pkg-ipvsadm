@@ -1,32 +1,33 @@
-# Vietnamese Translation for ipvsadm.
-# Copyright © 2009 Free Software Foundation, Inc.
-# Clytie Siddall <clytie@riverland.net.au>, 2005-2009.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
 #
+# Ossama M. Khayat <okhayat@yahoo.com>, 2009.
 msgid ""
 msgstr ""
-"Project-Id-Version: ipvsadm 1:1.24-2.1\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
 "POT-Creation-Date: 2008-05-20 08:43+0200\n"
-"PO-Revision-Date: 2009-01-30 23:39+0930\n"
-"Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
-"Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
+"PO-Revision-Date: 2009-10-26 00:18+0300\n"
+"Last-Translator: Ossama M. Khayat <okhayat@yahoo.com>\n"
+"Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.8\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
+"&& n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
 msgid "none, master, backup, both"
-msgstr "không có, chủ, sao lưu, cả hai"
+msgstr "لاشيء, الرئيسي, الاحتياطي, كلاهما"
 
 #. Type: select
 #. Description
 #: ../ipvsadm.templates:1002
 msgid "Daemon method:"
-msgstr "Phương pháp trình nền:"
+msgstr "طريقة العفريت:"
 
 #. Type: select
 #. Description
@@ -36,23 +37,21 @@ msgid ""
 "daemon in master mode, \"backup\" in backup mode and \"both\" uses master "
 "and backup mode at the same time. \"none\" disables the daemon."
 msgstr ""
-"Trình ipvsadm có khả năng kích hoạt trình nền đồng bộ hoá IPVS.\n"
-" • chủ\t\tkhởi chạy trình nền này trong chế độ chủ\n"
-" • sao lưu\tkhởi chạy trình nền này trong chế độ sao lưu\n"
-" • cả hai\t\tdùng cả hai chế độ đồng thời\n"
-" • không có\ttắt trình nền."
+"يستطيع ipvsadm تنشيط عفريت مزامنة IPVS. خيار \"الرئيسي\" يشغل هذا العفريت "
+"بوضع الرئيسي، و\"احتياطي\" بوضع الاحتياطي و\"كلاهما\" يستخدم وضع الرئيسي "
+"والاحتياطي في آن معاً. كما يعطّل الخيار \"لاشيء\" تشغيل العفريت."
 
 #. Type: select
 #. Description
 #: ../ipvsadm.templates:1002
 msgid "See the man page for more details, ipvsadm(8)."
-msgstr "Xem trang hướng dẫn (man) ipvsadm(8) để tìm chi tiết."
+msgstr "راجع صفحة الدليل السريع man للمزيد من المعلومات، ipvsadm(8)."
 
 #. Type: note
 #. Description
 #: ../ipvsadm.templates:2001
 msgid "Kernel does not support IPVS"
-msgstr "Hạt nhân này không hỗ trợ IPVS"
+msgstr "النواة لا تدعم IPVS"
 
 #. Type: note
 #. Description
@@ -61,14 +60,14 @@ msgid ""
 "ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS "
 "modules, otherwise this software is pretty useless."
 msgstr ""
-"Trình ipvsadm cần thiết hạt nhân hỗ trợ IPVS. Hãy dùng một hạt nhân chứa mô-"
-"đun IPVS, không thì phần mềm này hơi vô ích."
+"يتطلب برنامج ipvsadm دعم IPVS في النواة. رجاءً استخدم نواة تحتوي وحدات IPVS، "
+"وإلا سيكون هذا البرنامج بلا فائدة."
 
 #. Type: boolean
 #. Description
 #: ../ipvsadm.templates:3001
 msgid "Do you want to automatically load IPVS rules on boot?"
-msgstr "Bạn có muốn tự động nạp các quy tắc IPVS khi khởi động hệ thống không?"
+msgstr "هل تريد تحميل متطلبات IPVS آلياً عند الإقلاع؟"
 
 #. Type: boolean
 #. Description
@@ -77,14 +76,13 @@ msgid ""
 "If you choose this option your IPVS rules will be loaded from /etc/ipvsadm."
 "rules automatically on boot."
 msgstr ""
-"Bật tùy chọn này thì các quy tắc IPVS của bạn sẽ được nạp từ « /etc/ipvsadm."
-"rules » một cách tự động khi khởi động hệ thống."
+"إن انتقيت هذا الخيار فسيتم تحميل أحكام IPVS من /etc/ipvsadm.آلياً عند الإقلاع."
 
 #. Type: string
 #. Description
 #: ../ipvsadm.templates:4001
 msgid "Multicast interface for ipvsadm:"
-msgstr "Giao diện truyền một-nhiều cho ipvsadm:"
+msgstr "واجهة البث المتعدد لـipvsadmin:"
 
 #. Type: string
 #. Description
@@ -93,10 +91,8 @@ msgid ""
 "Select the multicast interface to be used by synchronization daemon. e.g. "
 "eth0, eth1..."
 msgstr ""
-"Hãy chọn giao diện truyền một-nhiều cho trình nền đồng bộ hoá dùng, v.d. "
-"eth0, eth1."
+"اختر واجهة البث المتعدد التي سيستخدمها عفريت المزامنة، مثلeth0، eth1..."
 
-# Variable: don't translate / Biến: đừng dịch
 #. Type: string
 #. Description
 #: ../ipvsadm.templates:4001

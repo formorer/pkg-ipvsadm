@@ -1,6 +1,11 @@
 ipvsadm (1:1.25) unstable; urgency=low
 
-  * New upstream version 
+  * New upstream version (Closes: #540423)
+  * Fix pending l10n issues. Debconf translations:
+  * Vietnamese (Clytie Siddall).  Closes: #513582
+  * Spanish (Francisco Javier Cuadrado).  Closes: #529727
+  * Arabic (Ossama M. Khayat).  Closes: #552384
+  * Japanese (Hideki Yamane (Debian-JP)).  Closes: #553028
 
  -- Alexander Wirt <formorer@debian.org>  Sun, 08 Nov 2009 14:16:20 +0100
 
