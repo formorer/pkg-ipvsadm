@@ -2,7 +2,7 @@
 #      ipvsadm - IP Virtual Server ADMinistration program
 #                for IPVS NetFilter Module in kernel 2.4
 #
-#      Version: $Id: Makefile 59 2008-09-23 16:14:43Z wensong $
+#      Version: $Id: Makefile 77 2011-02-08 00:23:51Z wensong $
 #
 #      Authors: Wensong Zhang <wensong@linux-vs.org>
 #               Peter Kese <peter.kese@ijs.si>
@@ -29,6 +29,7 @@ NAME		= ipvsadm
 VERSION		= $(shell cat VERSION)
 RELEASE		= 1
 SCHEDULERS	= "$(shell cat SCHEDULERS)"
+PE_LIST		= "$(shell cat PERSISTENCE_ENGINES)"
 PROGROOT	= $(shell basename `pwd`)
 ARCH		= $(shell uname -m)
 RPMSOURCEDIR	= $(shell rpm --eval '%_sourcedir')
@@ -62,11 +63,12 @@ RPMBUILD = $(shell				\
 	fi )
 
 ifeq (,$(FORCE_GETOPT))
-LIB_SEARCH = /lib /usr/lib /usr/local/lib
+LIB_SEARCH = /lib64 /usr/lib64 /usr/local/lib64 /lib /usr/lib /usr/local/lib
 POPT_LIB = $(shell for i in $(LIB_SEARCH); do \
   if [ -f $$i/libpopt.a ]; then \
     if nm $$i/libpopt.a | fgrep -q poptGetContext; then \
 	echo "-lpopt"; \
+	break; \
     fi; \
   fi; \
 done)
@@ -82,7 +84,7 @@ ifneq (0,$(HAVE_NL))
 LIBS		+= -lnl
 endif
 DEFINES		= -DVERSION=\"$(VERSION)\" -DSCHEDULERS=\"$(SCHEDULERS)\" \
-		  $(POPT_DEFINE)
+		  -DPE_LIST=\"$(PE_LIST)\" $(POPT_DEFINE)
 DEFINES		+= $(shell if [ ! -f ../ip_vs.h ]; then	\
 		     echo "-DHAVE_NET_IP_VS_H"; fi;)
 
@@ -99,16 +101,15 @@ ipvsadm:	$(OBJS) $(STATIC_LIBS)
 
 install:        all
 		if [ ! -d $(SBIN) ]; then $(MKDIR) -p $(SBIN); fi
-		$(INSTALL) -m 0755 -s ipvsadm $(SBIN)
+		$(INSTALL) -m 0755 ipvsadm $(SBIN)
 		$(INSTALL) -m 0755 ipvsadm-save $(SBIN)
 		$(INSTALL) -m 0755 ipvsadm-restore $(SBIN)
 		[ -d $(MAN) ] || $(MKDIR) -p $(MAN)
 		$(INSTALL) -m 0644 ipvsadm.8 $(MAN)
 		$(INSTALL) -m 0644 ipvsadm-save.8 $(MAN)
 		$(INSTALL) -m 0644 ipvsadm-restore.8 $(MAN)
-		if [ -d $(INIT) ]; then \
-		  $(INSTALL) -m 0755 ipvsadm.sh $(INIT)/ipvsadm; \
-		fi
+		[ -d $(INIT) ] || $(MKDIR) -p $(INIT)
+		$(INSTALL) -m 0755 ipvsadm.sh $(INIT)/ipvsadm
 
 clean:
 		rm -f ipvsadm $(NAME).spec $(NAME)-$(VERSION).tar.gz
@@ -126,7 +127,7 @@ dist:		distclean
 		rm -f $(NAME)-$(VERSION)
 		ln -s . $(NAME)-$(VERSION)
 		tar czvf $(NAME)-$(VERSION).tar.gz			\
-		    --exclude CVS					\
+		    --exclude CVS --exclude .svn --exclude TAGS		\
 		    --exclude $(NAME)-$(VERSION)/$(NAME)-$(VERSION)	\
 		    --exclude $(NAME)-$(VERSION).tar.gz			\
 		    $(NAME)-$(VERSION)/*
