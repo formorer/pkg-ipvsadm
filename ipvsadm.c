@@ -2,7 +2,7 @@
  *      ipvsadm - IP Virtual Server ADMinistration program
  *                for IPVS NetFilter Module in kernel 2.4
  *
- *      Version: $Id: ipvsadm.c 56 2008-09-15 20:57:07Z vince $
+ *      Version: $Id: ipvsadm.c 73 2010-10-07 12:59:40Z horms $
  *
  *      Authors: Wensong Zhang <wensong@linuxvirtualserver.org>
  *               Peter Kese <peter.kese@ijs.si>
@@ -93,7 +93,6 @@
 #undef __KERNEL__	/* Makefile lazyness ;) */
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
 #include <netdb.h>
 #include <string.h>
 #include <unistd.h>
@@ -181,13 +180,16 @@ static const char* cmdnames[] = {
 #define OPT_NOSORT		0x040000
 #define OPT_SYNCID		0x080000
 #define OPT_EXACT		0x100000
-#define NUMBER_OF_OPT		21
+#define OPT_ONEPACKET		0x200000
+#define OPT_PERSISTENCE_ENGINE  0x400000
+#define NUMBER_OF_OPT		23
 
 static const char* optnames[] = {
 	"numeric",
 	"connection",
 	"service-address",
 	"scheduler",
+	"pe",
 	"persistent",
 	"netmask",
 	"real-server",
@@ -205,6 +207,7 @@ static const char* optnames[] = {
 	"nosort",
 	"syncid",
 	"exact",
+	"ops",
 };
 
 /*
@@ -217,21 +220,21 @@ static const char* optnames[] = {
  */
 static const char commands_v_options[NUMBER_OF_CMD][NUMBER_OF_OPT] =
 {
-	/*   -n   -c   svc  -s   -p   -M   -r   fwd  -w   -x   -y   -mc  tot  dmn  -st  -rt  thr  -pc  srt  sid  -ex */
-/*ADD*/     {'x', 'x', '+', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*EDIT*/    {'x', 'x', '+', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*DEL*/     {'x', 'x', '+', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*FLUSH*/   {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*LIST*/    {' ', '1', '1', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', '1', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' '},
-/*ADDSRV*/  {'x', 'x', '+', 'x', 'x', 'x', '+', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*DELSRV*/  {'x', 'x', '+', 'x', 'x', 'x', '+', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*EDITSRV*/ {'x', 'x', '+', 'x', 'x', 'x', '+', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*TIMEOUT*/ {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*STARTD*/  {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x'},
-/*STOPD*/   {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x'},
-/*RESTORE*/ {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*SAVE*/    {' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
-/*ZERO*/    {'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+	/*   -n   -c   svc  -s   -p   -M   -r   fwd  -w   -x   -y   -mc  tot  dmn  -st  -rt  thr  -pc  srt  sid  -ex  ops */
+/*ADD*/     {'x', 'x', '+', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' '},
+/*EDIT*/    {'x', 'x', '+', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' '},
+/*DEL*/     {'x', 'x', '+', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*FLUSH*/   {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*LIST*/    {' ', '1', '1', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', '1', '1', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'x'},
+/*ADDSRV*/  {'x', 'x', '+', 'x', 'x', 'x', '+', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*DELSRV*/  {'x', 'x', '+', 'x', 'x', 'x', '+', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*EDITSRV*/ {'x', 'x', '+', 'x', 'x', 'x', '+', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*TIMEOUT*/ {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*STARTD*/  {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x'},
+/*STOPD*/   {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', ' ', 'x', 'x'},
+/*RESTORE*/ {'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*SAVE*/    {' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
+/*ZERO*/    {'x', 'x', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
 };
 
 /* printing format flags */
@@ -265,6 +268,24 @@ struct ipvs_command_entry {
 	ipvs_daemon_t		daemon;
 };
 
+/* Use values outside ASCII range so that if an option has
+ * a short name it can be used as the tag
+ */
+enum {
+	TAG_SET	= 128,
+	TAG_START_DAEMON,
+	TAG_STOP_DAEMON	,
+	TAG_MCAST_INTERFACE,
+	TAG_TIMEOUT,
+	TAG_DAEMON,
+	TAG_STATS,
+	TAG_RATE,
+	TAG_THRESHOLDS,
+	TAG_PERSISTENTCONN,
+	TAG_SORT,
+	TAG_NO_SORT,
+	TAG_PERSISTENCE_ENGINE,
+};
 
 /* various parsing helpers & parsing functions */
 static int str_is_digit(const char *str);
@@ -344,52 +365,68 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 	poptContext context;
 	char *optarg=NULL;
 	struct poptOption options_table[] = {
-		{"add-service", 'A', POPT_ARG_NONE, NULL, 'A'},
-		{"edit-service", 'E', POPT_ARG_NONE, NULL, 'E'},
-		{"delete-service", 'D', POPT_ARG_NONE, NULL, 'D'},
-		{"clear", 'C', POPT_ARG_NONE, NULL, 'C'},
-		{"list", 'L', POPT_ARG_NONE, NULL, 'L'},
-		{"list", 'l', POPT_ARG_NONE, NULL, 'l'},
-		{"zero", 'Z', POPT_ARG_NONE, NULL, 'Z'},
-		{"add-server", 'a', POPT_ARG_NONE, NULL, 'a'},
-		{"edit-server", 'e', POPT_ARG_NONE, NULL, 'e'},
-		{"delete-server", 'd', POPT_ARG_NONE, NULL, 'd'},
-		{"set", '\0', POPT_ARG_NONE, NULL, '4'},
-		{"help", 'h', POPT_ARG_NONE, NULL, 'h'},
-		{"version", 'v', POPT_ARG_NONE, NULL, 'v'},
-		{"restore", 'R', POPT_ARG_NONE, NULL, 'R'},
-		{"save", 'S', POPT_ARG_NONE, NULL, 'S'},
-		{"start-daemon", '\0', POPT_ARG_STRING, &optarg, '1'},
-		{"stop-daemon", '\0', POPT_ARG_STRING, &optarg, '2'},
-		{"tcp-service", 't', POPT_ARG_STRING, &optarg, 't'},
-		{"udp-service", 'u', POPT_ARG_STRING, &optarg, 'u'},
-		{"fwmark-service", 'f', POPT_ARG_STRING, &optarg, 'f'},
-		{"scheduler", 's', POPT_ARG_STRING, &optarg, 's'},
-		{"persistent", 'p', POPT_ARG_STRING|POPT_ARGFLAG_OPTIONAL,
-		 &optarg, 'p'},
-		{"netmask", 'M', POPT_ARG_STRING, &optarg, 'M'},
-		{"real-server", 'r', POPT_ARG_STRING, &optarg, 'r'},
-		{"masquerading", 'm', POPT_ARG_NONE, NULL, 'm'},
-		{"ipip", 'i', POPT_ARG_NONE, NULL, 'i'},
-		{"gatewaying", 'g', POPT_ARG_NONE, NULL, 'g'},
-		{"weight", 'w', POPT_ARG_STRING, &optarg, 'w'},
-		{"u-threshold", 'x', POPT_ARG_STRING, &optarg, 'x'},
-		{"l-threshold", 'y', POPT_ARG_STRING, &optarg, 'y'},
-		{"numeric", 'n', POPT_ARG_NONE, NULL, 'n'},
-		{"connection", 'c', POPT_ARG_NONE, NULL, 'c'},
-		{"mcast-interface", '\0', POPT_ARG_STRING, &optarg, '3'},
-		{"syncid", '\0', POPT_ARG_STRING, &optarg, 'I'},
-		{"timeout", '\0', POPT_ARG_NONE, NULL, '5'},
-		{"daemon", '\0', POPT_ARG_NONE, NULL, '6'},
-		{"stats", '\0', POPT_ARG_NONE, NULL, '7'},
-		{"rate", '\0', POPT_ARG_NONE, NULL, '8'},
-		{"thresholds", '\0', POPT_ARG_NONE, NULL, '9'},
-		{"persistent-conn", '\0', POPT_ARG_NONE, NULL, 'P'},
-		{"nosort", '\0', POPT_ARG_NONE, NULL, '0'},
-		{"sort", '\0', POPT_ARG_NONE, NULL, 'o'},
-		{"exact", 'X', POPT_ARG_NONE, NULL, 'X'},
-		{"ipv6", '6', POPT_ARG_NONE, NULL, '%'},
-		{NULL, 0, 0, NULL, 0}
+		{ "add-service", 'A', POPT_ARG_NONE, NULL, 'A', NULL, NULL },
+		{ "edit-service", 'E', POPT_ARG_NONE, NULL, 'E', NULL, NULL },
+		{ "delete-service", 'D', POPT_ARG_NONE, NULL, 'D', NULL, NULL },
+		{ "clear", 'C', POPT_ARG_NONE, NULL, 'C', NULL, NULL },
+		{ "list", 'L', POPT_ARG_NONE, NULL, 'L', NULL, NULL },
+		{ "list", 'l', POPT_ARG_NONE, NULL, 'l', NULL, NULL },
+		{ "zero", 'Z', POPT_ARG_NONE, NULL, 'Z', NULL, NULL },
+		{ "add-server", 'a', POPT_ARG_NONE, NULL, 'a', NULL, NULL },
+		{ "edit-server", 'e', POPT_ARG_NONE, NULL, 'e', NULL, NULL },
+		{ "delete-server", 'd', POPT_ARG_NONE, NULL, 'd', NULL, NULL },
+		{ "set", '\0', POPT_ARG_NONE, NULL, TAG_SET, NULL, NULL },
+		{ "help", 'h', POPT_ARG_NONE, NULL, 'h', NULL, NULL },
+		{ "version", 'v', POPT_ARG_NONE, NULL, 'v', NULL, NULL },
+		{ "restore", 'R', POPT_ARG_NONE, NULL, 'R', NULL, NULL },
+		{ "save", 'S', POPT_ARG_NONE, NULL, 'S', NULL, NULL },
+		{ "start-daemon", '\0', POPT_ARG_STRING, &optarg,
+		  TAG_START_DAEMON, NULL, NULL },
+		{ "stop-daemon", '\0', POPT_ARG_STRING, &optarg,
+		  TAG_STOP_DAEMON, NULL, NULL },
+		{ "tcp-service", 't', POPT_ARG_STRING, &optarg, 't',
+		  NULL, NULL },
+		{ "udp-service", 'u', POPT_ARG_STRING, &optarg, 'u',
+		  NULL, NULL },
+		{ "fwmark-service", 'f', POPT_ARG_STRING, &optarg, 'f',
+		  NULL, NULL },
+		{ "scheduler", 's', POPT_ARG_STRING, &optarg, 's', NULL, NULL },
+		{ "persistent", 'p', POPT_ARG_STRING|POPT_ARGFLAG_OPTIONAL,
+		 &optarg, 'p', NULL, NULL },
+		{ "netmask", 'M', POPT_ARG_STRING, &optarg, 'M', NULL, NULL },
+		{ "real-server", 'r', POPT_ARG_STRING, &optarg, 'r',
+		  NULL, NULL },
+		{ "masquerading", 'm', POPT_ARG_NONE, NULL, 'm', NULL, NULL },
+		{ "ipip", 'i', POPT_ARG_NONE, NULL, 'i', NULL, NULL },
+		{ "gatewaying", 'g', POPT_ARG_NONE, NULL, 'g', NULL, NULL },
+		{ "weight", 'w', POPT_ARG_STRING, &optarg, 'w', NULL, NULL },
+		{ "u-threshold", 'x', POPT_ARG_STRING, &optarg, 'x',
+		  NULL, NULL },
+		{ "l-threshold", 'y', POPT_ARG_STRING, &optarg, 'y',
+		  NULL, NULL },
+		{ "numeric", 'n', POPT_ARG_NONE, NULL, 'n', NULL, NULL },
+		{ "connection", 'c', POPT_ARG_NONE, NULL, 'c', NULL, NULL },
+		{ "mcast-interface", '\0', POPT_ARG_STRING, &optarg,
+		  TAG_MCAST_INTERFACE, NULL, NULL },
+		{ "syncid", '\0', POPT_ARG_STRING, &optarg, 'I', NULL, NULL },
+		{ "timeout", '\0', POPT_ARG_NONE, NULL, TAG_TIMEOUT,
+		  NULL, NULL },
+		{ "daemon", '\0', POPT_ARG_NONE, NULL, TAG_DAEMON, NULL, NULL },
+		{ "stats", '\0', POPT_ARG_NONE, NULL, TAG_STATS, NULL, NULL },
+		{ "rate", '\0', POPT_ARG_NONE, NULL, TAG_RATE, NULL, NULL },
+		{ "thresholds", '\0', POPT_ARG_NONE, NULL,
+		   TAG_THRESHOLDS, NULL, NULL },
+		{ "persistent-conn", '\0', POPT_ARG_NONE, NULL,
+		  TAG_PERSISTENTCONN, NULL, NULL },
+		{ "nosort", '\0', POPT_ARG_NONE, NULL,
+		   TAG_NO_SORT, NULL, NULL },
+		{ "sort", '\0', POPT_ARG_NONE, NULL, TAG_SORT, NULL, NULL },
+		{ "exact", 'X', POPT_ARG_NONE, NULL, 'X', NULL, NULL },
+		{ "ipv6", '6', POPT_ARG_NONE, NULL, '6', NULL, NULL },
+		{ "ops", 'o', POPT_ARG_NONE, NULL, 'o', NULL, NULL },
+		{ "pe", '\0', POPT_ARG_STRING, &optarg, TAG_PERSISTENCE_ENGINE,
+		  NULL, NULL },
+		{ NULL, 0, 0, NULL, 0, NULL, NULL }
 	};
 
 	context = poptGetContext("ipvsadm", argc, (const char **)argv,
@@ -427,7 +464,7 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 	case 'Z':
 		set_command(&ce->cmd, CMD_ZERO);
 		break;
-	case '4':
+	case TAG_SET:
 		set_command(&ce->cmd, CMD_TIMEOUT);
 		break;
 	case 'R':
@@ -436,7 +473,7 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 	case 'S':
 		set_command(&ce->cmd, CMD_SAVE);
 		break;
-	case '1':
+	case TAG_START_DAEMON:
 		set_command(&ce->cmd, CMD_STARTDAEMON);
 		if (!strcmp(optarg, "master"))
 			ce->daemon.state = IP_VS_STATE_MASTER;
@@ -444,7 +481,7 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 			ce->daemon.state = IP_VS_STATE_BACKUP;
 		else fail(2, "illegal start-daemon parameter specified");
 		break;
-	case '2':
+	case TAG_STOP_DAEMON:
 		set_command(&ce->cmd, CMD_STOPDAEMON);
 		if (!strcmp(optarg, "master"))
 			ce->daemon.state = IP_VS_STATE_MASTER;
@@ -491,7 +528,7 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 			break;
 		case 'p':
 			set_option(options, OPT_PERSISTENT);
-			ce->svc.flags = IP_VS_SVC_F_PERSISTENT;
+			ce->svc.flags |= IP_VS_SVC_F_PERSISTENT;
 			ce->svc.timeout =
 				parse_timeout(optarg, 1, MAX_TIMEOUT);
 			break;
@@ -559,7 +596,7 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 			set_option(options, OPT_NUMERIC);
 			*format |= FMT_NUMERIC;
 			break;
-		case '3':
+		case TAG_MCAST_INTERFACE:
 			set_option(options, OPT_MCAST);
 			strncpy(ce->daemon.mcast_ifn,
 				optarg, IP_VS_IFNAME_MAXLEN);
@@ -570,46 +607,54 @@ parse_options(int argc, char **argv, struct ipvs_command_entry *ce,
 			     string_to_number(optarg, 0, 255)) == -1)
 				fail(2, "illegal syncid specified");
 			break;
-		case '5':
+		case TAG_TIMEOUT:
 			set_option(options, OPT_TIMEOUT);
 			break;
-		case '6':
+		case TAG_DAEMON:
 			set_option(options, OPT_DAEMON);
 			break;
-		case '7':
+		case TAG_STATS:
 			set_option(options, OPT_STATS);
 			*format |= FMT_STATS;
 			break;
-		case '8':
+		case TAG_RATE:
 			set_option(options, OPT_RATE);
 			*format |= FMT_RATE;
 			break;
-		case '9':
+		case TAG_THRESHOLDS:
 			set_option(options, OPT_THRESHOLDS);
 			*format |= FMT_THRESHOLDS;
 			break;
-		case 'P':
+		case TAG_PERSISTENTCONN:
 			set_option(options, OPT_PERSISTENTCONN);
 			*format |= FMT_PERSISTENTCONN;
 			break;
-		case '0':
+		case TAG_NO_SORT:
 			set_option(options, OPT_NOSORT	);
 			*format |= FMT_NOSORT;
 			break;
-		case 'o':
+		case TAG_SORT:
 			/* Sort is the default, this is a no-op for compatibility */
 			break;
 		case 'X':
 			set_option(options, OPT_EXACT);
 			*format |= FMT_EXACT;
 			break;
-		case '%':
+		case '6':
 			if (ce->svc.fwmark) {
 				ce->svc.af = AF_INET6;
 				ce->svc.netmask = 128;
 			} else {
 				fail(2, "-6 used before -f\n");
 			}
+			break;
+		case 'o':
+			set_option(options, OPT_ONEPACKET);
+			ce->svc.flags |= IP_VS_SVC_F_ONEPACKET;
+			break;
+		case TAG_PERSISTENCE_ENGINE:
+			set_option(options, OPT_PERSISTENCE_ENGINE);
+			strncpy(ce->svc.pe_name, optarg, IP_VS_PENAME_MAXLEN);
 			break;
 		default:
 			fail(2, "invalid option `%s'",
@@ -696,9 +741,14 @@ static int process_options(int argc, char **argv, int reading_stdin)
 	if (ce.cmd == CMD_ADD || ce.cmd == CMD_EDIT) {
 		/* Make sure that port zero service is persistent */
 		if (!ce.svc.fwmark && !ce.svc.port &&
-		    (ce.svc.flags != IP_VS_SVC_F_PERSISTENT))
+		    !(ce.svc.flags & IP_VS_SVC_F_PERSISTENT))
 			fail(2, "Zero port specified "
 			     "for non-persistent service");
+
+		if (ce.svc.flags & IP_VS_SVC_F_ONEPACKET &&
+		    !ce.svc.fwmark && ce.svc.protocol != IPPROTO_UDP)
+			fail(2, "One-Packet Scheduling is only "
+			     "for UDP virtual services");
 
 		/* Set the default scheduling algorithm if not specified */
 		if (strlen(ce.svc.sched_name) == 0)
@@ -722,11 +772,10 @@ static int process_options(int argc, char **argv, int reading_stdin)
 
 	switch (ce.cmd) {
 	case CMD_LIST:
-		if ((options & OPT_CONNECTION ||
-		     options & OPT_TIMEOUT || options & OPT_DAEMON) &&
-		    (options & OPT_STATS ||
-		     options & OPT_PERSISTENTCONN ||
-		     options & OPT_RATE || options & OPT_THRESHOLDS))
+		if ((options & (OPT_CONNECTION|OPT_TIMEOUT|OPT_DAEMON) &&
+		     options & (OPT_STATS|OPT_RATE|OPT_THRESHOLDS)) ||
+		    (options & (OPT_TIMEOUT|OPT_DAEMON) &&
+		     options & OPT_PERSISTENTCONN))
 			fail(2, "options conflicts in the list command");
 
 		if (options & OPT_CONNECTION)
@@ -1021,7 +1070,7 @@ static void usage_exit(const char *program, const int exit_status)
 	version(stream);
 	fprintf(stream,
 		"Usage:\n"
-		"  %s -A|E -t|u|f service-address [-s scheduler] [-p [timeout]] [-M netmask]\n"
+		"  %s -A|E -t|u|f service-address [-s scheduler] [-p [timeout]] [-M netmask] [--pe persistence_engine]\n"
 		"  %s -D -t|u|f service-address\n"
 		"  %s -C\n"
 		"  %s -R\n"
@@ -1066,6 +1115,8 @@ static void usage_exit(const char *program, const int exit_status)
 		"  --ipv6         -6                   fwmark entry uses IPv6\n"
 		"  --scheduler    -s scheduler         one of " SCHEDULERS ",\n"
 		"                                      the default scheduler is %s.\n"
+		"  --pe            engine              alternate persistence engine may be " PE_LIST ",\n"
+		"                                      not set by default.\n"
 		"  --persistent   -p [timeout]         persistent service\n"
 		"  --netmask      -M netmask           persistent granularity mask\n"
 		"  --real-server  -r server-address    server-address is host (and port)\n"
@@ -1087,6 +1138,7 @@ static void usage_exit(const char *program, const int exit_status)
 		"  --persistent-conn                   output of persistent connection info\n"
 		"  --nosort                            disable sorting output of service/server entries\n"
 		"  --sort                              does nothing, for backwards compatibility\n"
+		"  --ops          -o                   one-packet scheduling\n"
 		"  --numeric      -n                   numeric output of addresses and ports\n",
 		DEF_SCHED);
 
@@ -1185,6 +1237,8 @@ static void print_conn(char *buf, unsigned int format)
 	char            state[16];
 	unsigned int    expires;
 	unsigned short  af = AF_INET;
+	char		pe_name[IP_VS_PENAME_MAXLEN];
+	char		pe_data[IP_VS_PEDATA_MAXLEN];
 
 	int n;
 	char temp1[INET6_ADDRSTRLEN], temp2[INET6_ADDRSTRLEN], temp3[INET6_ADDRSTRLEN];
@@ -1192,9 +1246,10 @@ static void print_conn(char *buf, unsigned int format)
 	unsigned int	minutes, seconds;
 	char		expire_str[12];
 
-	if ((n = sscanf(buf, "%s %s %hX %s %hX %s %hX %s %d",
+	if ((n = sscanf(buf, "%s %s %hX %s %hX %s %hX %s %d %s %s",
 			protocol, temp1, &cport, temp2, &vport,
-			temp3, &dport, state, &expires)) == -1)
+			temp3, &dport, state, &expires,
+			pe_name, pe_data)) == -1)
 		exit(1);
 
 	if (strcmp(protocol, "TCP") == 0)
@@ -1228,8 +1283,13 @@ static void print_conn(char *buf, unsigned int format)
 	minutes = expires / 60;
 	sprintf(expire_str, "%02d:%02d", minutes, seconds);
 
-	printf("%-3s %-6s %-11s %-18s %-18s %s\n",
-	       protocol, expire_str, state, cname, vname, dname);
+	if (format & FMT_PERSISTENTCONN && n == 11)
+		printf("%-3s %-6s %-11s %-18s %-18s %-16s %-18s %s\n",
+		       protocol, expire_str, state, cname, vname, dname,
+		       pe_name, pe_data);
+	else
+		printf("%-3s %-6s %-11s %-18s %-18s %s\n",
+		       protocol, expire_str, state, cname, vname, dname);
 
 	free(cname);
 	free(vname);
@@ -1255,8 +1315,13 @@ void list_conn(unsigned int format)
 		exit(1);
 	}
 	printf("IPVS connection entries\n");
-	printf("pro expire %-11s %-18s %-18s %s\n",
-	       "state", "source", "virtual", "destination");
+	if (format & FMT_PERSISTENTCONN)
+		printf("pro expire %-11s %-18s %-18s %-18s %-16s %s\n",
+		       "state", "source", "virtual", "destination",
+		       "pe name", "pe_data");
+	else
+		printf("pro expire %-11s %-18s %-18s %s\n",
+		       "state", "source", "virtual", "destination");
 
 	/*
 	 * Print the VS information according to the format
@@ -1419,6 +1484,10 @@ print_service_entry(ipvs_service_entry_t *se, unsigned int format)
 					printf(" -M %i", se->netmask);
 				}
 		}
+		if (se->pe_name[0])
+			printf(" pe %s", se->pe_name);
+		if (se->flags & IP_VS_SVC_F_ONEPACKET)
+			printf(" ops");
 	} else if (format & FMT_STATS) {
 		printf("%-33s", svc_name);
 		print_largenum(se->stats.conns, format);
@@ -1446,6 +1515,10 @@ print_service_entry(ipvs_service_entry_t *se, unsigned int format)
 			if (se->af == AF_INET6)
 				if (se->netmask != 128)
 					printf(" mask %i", se->netmask);
+			if (se->pe_name[0])
+				printf(" pe %s", se->pe_name);
+			if (se->flags & IP_VS_SVC_F_ONEPACKET)
+				printf(" ops");
 		}
 	}
 	printf("\n");
