@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm-templates\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-03-31 12:18+0200\n"
+"POT-Creation-Date: 2008-05-20 08:43+0200\n"
 "PO-Revision-Date: 2008-04-09 23:28+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -60,8 +61,8 @@ msgid ""
 "ipvsadm requires IPVS support in the kernel. Please use a kernel with IPVS "
 "modules, otherwise this software is pretty useless."
 msgstr ""
-"ipvsadm-ek kernelean IPVS onarpena behar du. Mesedez erabili IPVS "
-"moduluak dituen kernel bat, bestela software hau ezin da erabili."
+"ipvsadm-ek kernelean IPVS onarpena behar du. Mesedez erabili IPVS moduluak "
+"dituen kernel bat, bestela software hau ezin da erabili."
 
 #. Type: boolean
 #. Description
@@ -76,8 +77,8 @@ msgid ""
 "If you choose this option your IPVS rules will be loaded from /etc/ipvsadm."
 "rules automatically on boot."
 msgstr ""
-"Aukera hau hautatuaz IPVS arauak sistema abioan automatikoki kargatuko "
-"dira /etc/ipvsadm-etik."
+"Aukera hau hautatuaz IPVS arauak sistema abioan automatikoki kargatuko dira /"
+"etc/ipvsadm-etik."
 
 #. Type: string
 #. Description
@@ -100,4 +101,3 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
-
