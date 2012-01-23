@@ -1,0 +1,20 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 01_fix_popt_multiarch.dpatch by Alexander Wirt <formorer@debian.org>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Also lookup popt in the multiarch directorys
+
+@DPATCH@
+diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' pkg-ipvsadm~/Makefile pkg-ipvsadm/Makefile
+--- pkg-ipvsadm~/Makefile	2011-11-10 08:49:00.000000000 +0100
++++ pkg-ipvsadm/Makefile	2012-01-23 08:48:20.776987515 +0100
+@@ -63,7 +63,8 @@
+ 	fi )
+ 
+ ifeq (,$(FORCE_GETOPT))
+-LIB_SEARCH = /lib64 /usr/lib64 /usr/local/lib64 /lib /usr/lib /usr/local/lib
++DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
++LIB_SEARCH = /lib64 /usr/lib64 /usr/local/lib64 /lib /usr/lib /usr/local/lib /usr/lib/$(DEB_HOST_MULTIARCH)
+ POPT_LIB = $(shell for i in $(LIB_SEARCH); do \
+   if [ -f $$i/libpopt.a ]; then \
+     if nm $$i/libpopt.a | fgrep -q poptGetContext; then \
