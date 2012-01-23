@@ -6,13 +6,13 @@
 # Provides:          ipvsadm
 # Required-Start:    $network
 # Required-Stop:     $network
-# Default-Start:     2 3 5 
-# Default-Stop:      0 6 
+# Default-Start:     2 3 5
+# Default-Stop:      0 6
 # Description: Starts ipvsadm daemon
 # short-description: ipvsadm daemon
 ### END INIT INFO
 
-#includes lsb functions 
+#includes lsb functions
 . /lib/lsb/init-functions
 
 IPVSADM="/sbin/ipvsadm"
@@ -39,7 +39,7 @@ start () {
 	    if [ "$FAILURE" -eq 1 ]
 	    then
 		log_end_msg 1
-	    else 
+	    else
 	    	log_end_msg 0
 	    fi
 	    ;;
@@ -56,7 +56,7 @@ stop () {
 	    $IPVSADM --stop-daemon $DAEMON || log_end_msg 1
 	    log_end_msg 0
 	    ;;
-	both) 
+	both)
 	    log_daemon_msg "Stopping IPVS Connection Synchronization Daemon" "master"
 	    $IPVSADM --stop-daemon master || FAILURE=1
 	    log_progress_msg "backup"
@@ -75,9 +75,9 @@ stop () {
 }
 
 flush () {
-    log_action_begin_msg "Clearing the current IPVS table" 
+    log_action_begin_msg "Clearing the current IPVS table"
     ipvsadm -C || log_action_end_msg 1
-    log_action_end_msg 0 
+    log_action_end_msg 0
 }
 
 load () {
@@ -88,8 +88,8 @@ load () {
 
 save () {
     log_action_begin_msg "Saving IPVS configuration"
-    echo "# ipvsadm.rules" > $IPVSADM_RULES 
-    $IPVSADM -S -n >> $IPVSADM_RULES 
+    echo "# ipvsadm.rules" > $IPVSADM_RULES
+    $IPVSADM -S -n >> $IPVSADM_RULES
     log_action_end_msg 0
 }
 
