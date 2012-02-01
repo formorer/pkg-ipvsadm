@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm 1.24+1.21-1.1\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2008-07-22 19:59+0100\n"
 "Last-Translator: Martin Bagge <brother@bsnet.se>\n"
 "Language-Team: Swedish <debian-l10n-swedish@lists.debian.org>\n"
@@ -29,8 +29,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-msgid "none, master, backup, both"
-msgstr "ingen, master, backup, båda"
+msgid "none"
+msgstr "ingen"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr "master"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr "backup"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr "båda"
 
 #. Type: select
 #. Description
@@ -110,3 +128,6 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#~ msgid "none, master, backup, both"
+#~ msgstr "ingen, master, backup, båda"

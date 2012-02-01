@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm-templates\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2008-04-09 23:28+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Euskara <debian-l10n-basque@lists.debian.org>\n"
@@ -20,8 +20,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-msgid "none, master, backup, both"
-msgstr "batez, nagusia, babeskopia, biak"
+msgid "none"
+msgstr "batez"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr "nagusia"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr "babeskopia"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr "biak"
 
 #. Type: select
 #. Description
@@ -101,3 +119,6 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#~ msgid "none, master, backup, both"
+#~ msgstr "batez, nagusia, babeskopia, biak"

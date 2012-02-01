@@ -1,6 +1,6 @@
 Template: ipvsadm/daemon_method
 Type: select
-_Choices: none, master, backup, both
+__Choices: none, master, backup, both
 Default: none
 _Description: Daemon method:
  ipvsadm can activate the IPVS synchronization daemon. "master" starts this

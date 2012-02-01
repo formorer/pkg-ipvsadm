@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm 1:1.24-2.1\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2009-01-30 23:39+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <vi-VN@googlegroups.com>\n"
@@ -20,8 +20,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-msgid "none, master, backup, both"
-msgstr "không có, chủ, sao lưu, cả hai"
+msgid "none"
+msgstr "không có"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr "chủ"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr "sao lưu"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr "cả hai"
 
 #. Type: select
 #. Description
@@ -103,3 +121,6 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#~ msgid "none, master, backup, both"
+#~ msgstr "không có, chủ, sao lưu, cả hai"

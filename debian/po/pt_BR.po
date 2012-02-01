@@ -15,7 +15,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2005-02-13 15:33-0200\n"
 "Last-Translator: André Luís Lopes <andrelop@debian.org>\n"
 "Language-Team: Debian-BR Project <debian-l10n-portuguese@lists.debian.org>\n"
@@ -27,10 +27,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-#, fuzzy
-#| msgid "none, master, backup"
-msgid "none, master, backup, both"
-msgstr "nenhum, mestre, backup"
+msgid "none"
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr ""
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr ""
 
 #. Type: select
 #. Description
@@ -123,6 +139,11 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#, fuzzy
+#~| msgid "none, master, backup"
+#~ msgid "none, master, backup, both"
+#~ msgstr "nenhum, mestre, backup"
 
 #, fuzzy
 #~| msgid "Enter the multicast interface that sync daemon uses."

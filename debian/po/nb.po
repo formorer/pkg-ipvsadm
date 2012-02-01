@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: nb\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2008-04-05 11:13+0200\n"
 "Last-Translator: Bjørn Steensrud <bjornst@skogkatt.homelinux.org>\n"
 "Language-Team: Norwegian Bokmål <i18n-nb@lister.ping.uio.no>\n"
@@ -20,8 +20,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-msgid "none, master, backup, both"
-msgstr "ingen, hovednisse, reserve, begge"
+msgid "none"
+msgstr "ingen"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr "hovednisse"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr "reserve"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr "begge"
 
 #. Type: select
 #. Description
@@ -100,3 +118,6 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#~ msgid "none, master, backup, both"
+#~ msgstr "ingen, hovednisse, reserve, begge"

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ipvsadm\n"
 "Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
-"POT-Creation-Date: 2008-05-20 08:43+0200\n"
+"POT-Creation-Date: 2012-02-01 18:53+0100\n"
 "PO-Revision-Date: 2008-04-02 06:47+0100\n"
 "Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -18,8 +18,26 @@ msgstr ""
 #. Type: select
 #. Choices
 #: ../ipvsadm.templates:1001
-msgid "none, master, backup, both"
-msgstr "ningún, mestre, respaldo, ambos"
+msgid "none"
+msgstr "ningún"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "master"
+msgstr "mestre"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "backup"
+msgstr "respaldo"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:1001
+msgid "both"
+msgstr "ambos"
 
 #. Type: select
 #. Description
@@ -99,3 +117,6 @@ msgstr ""
 #: ../ipvsadm.templates:4001
 msgid "${interface_error}"
 msgstr "${interface_error}"
+
+#~ msgid "none, master, backup, both"
+#~ msgstr "ningún, mestre, respaldo, ambos"
