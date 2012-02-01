@@ -1,0 +1,2 @@
+We use dpatch for patch handling in the ipvsadm package.  Please see
+/usr/share/doc/dpatch/README.source.gz (if you have installed dpatch) for documentation about dpatch.
