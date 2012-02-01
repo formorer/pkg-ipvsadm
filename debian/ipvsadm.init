@@ -6,8 +6,8 @@
 # Provides:          ipvsadm
 # Required-Start:    $network
 # Required-Stop:     $network
-# Default-Start:     2 3 5
-# Default-Stop:      0 6
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
 # Description: Starts ipvsadm daemon
 # short-description: ipvsadm daemon
 ### END INIT INFO
