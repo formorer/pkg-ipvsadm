@@ -1,3 +1,9 @@
+ipvsadm (1:1.26-1) UNRELEASED; urgency=low
+
+  * [084f2b6] Imported Upstream version 1.26
+
+ -- Alexander Wirt <formorer@debian.org>  Thu, 10 Nov 2011 08:50:31 +0100
+
 ipvsadm (1:1.25) unstable; urgency=low
 
   * New upstream version (Closes: #540423)
