@@ -3,7 +3,7 @@ Section: net
 Priority: extra
 Maintainer: Alexander Wirt <formorer@debian.org>
 Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 5), libpopt-dev, po-debconf, libnl-dev, dpatch (>= 2.0.32~)
+Build-Depends: debhelper (>= 7.0.50~), libpopt-dev, po-debconf, libnl-dev, dpatch (>= 2.0.32~)
 
 Package: ipvsadm
 Architecture: any
