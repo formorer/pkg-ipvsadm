@@ -1,4 +1,4 @@
-ipvsadm (1:1.26-1) UNRELEASED; urgency=low
+ipvsadm (1:1.26-1) unstable; urgency=low
 
   * [084f2b6] Imported Upstream version 1.26
     - Fix display of active connections (Closes: #574587)
@@ -14,7 +14,7 @@ ipvsadm (1:1.26-1) UNRELEASED; urgency=low
   * [5481cda] Add ipvs and IPVS to description (Closes: #572315)
   * [8b71ffc] Apply patch for startup options of ipvsadm (Closes: #504001)
 
- -- Alexander Wirt <formorer@debian.org>  Wed, 22 Feb 2012 21:55:16 +0100
+ -- Alexander Wirt <formorer@debian.org>  Wed, 22 Feb 2012 22:03:47 +0100
 
 ipvsadm (1:1.25) unstable; urgency=low
 
