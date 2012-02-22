@@ -18,6 +18,7 @@
 IPVSADM="/sbin/ipvsadm"
 IPVSADM_RULES="/etc/ipvsadm.rules"
 IPVSADM_CONFIG="/etc/default/ipvsadm"
+SYNCID="1"
 
 AUTO="false"
 DAEMON="none"		# none|master|backup|both
