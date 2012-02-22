@@ -45,7 +45,7 @@ start () {
 	    fi
 	    ;;
 	*)
-	    log_action_msg "ipvsadm is not configured to run. Please run dpkg-reconfigure ipvsadm"
+	    log_action_msg "ipvsadm is not configured to run. Please edit /etc/default/ipvsadm"
 	    ;;
     esac
 }
