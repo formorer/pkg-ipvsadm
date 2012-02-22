@@ -1,8 +1,20 @@
 ipvsadm (1:1.26-1) UNRELEASED; urgency=low
 
   * [084f2b6] Imported Upstream version 1.26
+    - Fix display of active connections (Closes: #574587)
+  * [3a0f1e2] Use source format 1.0
+  * [d5ca6cd] Remove debconf configuration (Closes: #656652)
+  * [c9ac6fd] Update NEWS entry
+  * [4759bff] Update default file with new options
+  * [ee63b63] Add support for specifying syncid in /etc/default/ipvsadm
+    (Closes: #649106)
+  * [6a47317] Cleanup upstream provided debian/files
+  * [028471c] Update disabled message of initscript
+  * fix runlevels of initscript (Closes: #582821)
+  * [5481cda] Add ipvs and IPVS to description (Closes: #572315)
+  * [8b71ffc] Apply patch for startup options of ipvsadm (Closes: #504001)
 
- -- Alexander Wirt <formorer@debian.org>  Thu, 10 Nov 2011 08:50:31 +0100
+ -- Alexander Wirt <formorer@debian.org>  Wed, 22 Feb 2012 21:55:16 +0100
 
 ipvsadm (1:1.25) unstable; urgency=low
 
