@@ -12,9 +12,10 @@ Conflicts: lvs
 Replaces: lvs
 Suggests: heartbeat, keepalived, ldirectord
 Description: Linux Virtual Server support programs
- The Linux Virtual Server is a highly scalable and highly available server
- built on a cluster of real servers. The architecture of the cluster is
- transparent to end users, and the users see only a single virtual server.
+ The Linux Virtual Server (lvs or IPVS) is a highly scalable and highly
+ available server built on a cluster of real servers. The architecture of the
+ cluster is transparent to end users, and the users see only a single virtual
+ server.
  .
  This package provides some support programs necessary to implement a virtual
  server under Linux. With the addition of the mon and heartbeat packages it is
