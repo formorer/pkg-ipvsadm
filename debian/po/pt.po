@@ -1,0 +1,115 @@
+# Portuguese translation for ipvsadm's debconf messages
+# Copyright (C) 2012
+# This file is distributed under the same license as the ipvsadm package.
+# Rui Branco <ruipb@debianpt.org>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ipvsadm 1:1.26-2\n"
+"Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
+"POT-Creation-Date: 2012-09-10 07:29+0200\n"
+"PO-Revision-Date: 2012-09-15 11:53+0100\n"
+"Last-Translator: Rui Branco <ruipb@debianpt.org>\n"
+"Language-Team: Portuguese <traduz@debianpt.org>\n"
+"Language: pt\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "none"
+msgstr "nenhum"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "master"
+msgstr "mestre"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "backup"
+msgstr "backup"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "both"
+msgstr "ambos"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid "Daemon method:"
+msgstr "Método para o 'daemon':"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid ""
+"ipvsadm can activate the IPVS synchronization daemon. \"master\" starts this "
+"daemon in master mode, \"backup\" starts it in backup mode, and \"both\" "
+"uses master and backup modes at the same time. \"none\" disables the daemon."
+msgstr ""
+"O ipvsadm pode activar o 'daemon' de sincronização IPVS. O método \"mestre\" "
+"inicia o 'daemon' em modo de mestre, \"backup\" em modo de backup, e \"ambos"
+"\" utiliza o modo mestre e o de backup ao mesmo tempo, \"none \" desactiva o "
+"'daemon'."
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid "See the ipvsadm(8) man page for more details."
+msgstr "Veja a página man do ipvsadm(8) para mais detalhes."
+
+#. Type: error
+#. Description
+#: ../ipvsadm.templates:3001
+msgid "Kernel does not support IPVS"
+msgstr "O kernel não suporta IPVS"
+
+#. Type: error
+#. Description
+#: ../ipvsadm.templates:3001
+msgid ""
+"ipvsadm is useless with this kernel, since it has been built with "
+"CONFIG_IP_VS=n. Please use a kernel compiled with IPVS support."
+msgstr ""
+"O ipvsadm é inútil com este kernel, pelo facto de este ter sido compilado "
+"com a opção CONFIG_IP_VS=n. Por favor utilize um kernel compilado com "
+"suporte IPVS."
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "Do you want to automatically load IPVS rules on boot?"
+msgstr "Deseja carregar automaticamente as regras IPVS durante o arranque?"
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:4001
+msgid ""
+"If you choose this option, IPVS rules will be loaded from /etc/ipvsadm.rules "
+"automatically on boot."
+msgstr ""
+"Se escolher esta opção as suas regras IPVS serão carregadas a partir de /etc/"
+"ipvsadm.rules de modo automático durante o arranque do sistema."
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:5001
+msgid "Multicast interface for ipvsadm:"
+msgstr "Interface multicast para o ipvsadm:"
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:5001
+msgid ""
+"Please specify the multicast interface to be used by the synchronization "
+"daemon."
+msgstr ""
+"Por favor seleccione a interface multicast para ser utilizada pelo 'daemon' "
+"de sincronização."

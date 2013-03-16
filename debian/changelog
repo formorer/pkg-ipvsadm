@@ -1,3 +1,23 @@
+ipvsadm (1:1.26-2) unstable; urgency=low
+
+  [ Christian Perrier ]
+  * Debconf templates and debian/control reviewed by the debian-l10n-
+    english team as part of the Smith review project. Closes: #685577
+  * [Debconf translation updates]
+  * Russian (Yuri Kozlov).  Closes: #687432
+  * Polish (Michał Kułach).  Closes: #687551
+  * Italian (Beatrice Torracca).  Closes: #687655
+  * Portuguese (Rui Branco).  Closes: #687706
+  * Czech (Michal Simunek).  Closes: #687741
+  * Danish (Joe Hansen).  Closes: #656652
+  * Danish (Joe Hansen).  Closes: #687989
+  * German (Chris Leick).  Closes: #688032
+  * Swedish (Martin Bagge / brother).  Closes: #688432
+  * French (Christian Perrier).  Closes: #688457
+  * Spanish; (Javier Fernández-Sanguino).  Closes: #688926
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 16 Mar 2013 07:45:29 +0100
+
 ipvsadm (1:1.26-1) unstable; urgency=low
 
   * [084f2b6] Imported Upstream version 1.26

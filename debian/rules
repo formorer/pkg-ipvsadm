@@ -1,18 +1,14 @@
 #!/usr/bin/make -f
-# Uncomment this to turn on verbose mode.
-export DH_VERBOSE=1
-export DH_OPTIONS=-v
 
-DPKG_EXPORT_BUILDFLAGS = 1
-include /usr/share/dpkg/buildflags.mk
+CFLAGS += -Wall -Wunused -Wstrict-prototypes -g -fPIC -DLIBIPVS_USE_NL
 
-CFLAGS +=  -DLIBIPVS_USE_NL
+include /usr/share/dpatch/dpatch.make
 
 %:
-	dh  $@
+	dh $@ --with dpatch
 
 override_dh_auto_install::
- 
+
 override_dh_auto_clean:
 	dh_auto_clean
 	-rm debian/files

@@ -1,0 +1,112 @@
+# Czech PO debconf template translation of ipvsadm.
+# Copyright (C) 2012 Michal Simunek <michal.simunek@gmail.com>
+# This file is distributed under the same license as the ipvsadm package.
+# Michal Simunek <michal.simunek@gmail.com>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: ipvsadm 1:1.26-2\n"
+"Report-Msgid-Bugs-To: ipvsadm@packages.debian.org\n"
+"POT-Creation-Date: 2012-09-10 07:29+0200\n"
+"PO-Revision-Date: 2012-09-15 13:32+0200\n"
+"Last-Translator: Michal Simunek <michal.simunek@gmail.com>\n"
+"Language-Team: Czech <debian-l10n-czech@lists.debian.org>\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "none"
+msgstr "žádný"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "master"
+msgstr "hlavní"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "backup"
+msgstr "záložní"
+
+#. Type: select
+#. Choices
+#: ../ipvsadm.templates:2001
+msgid "both"
+msgstr "oboje"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid "Daemon method:"
+msgstr "Režim daemona:"
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid ""
+"ipvsadm can activate the IPVS synchronization daemon. \"master\" starts this "
+"daemon in master mode, \"backup\" starts it in backup mode, and \"both\" "
+"uses master and backup modes at the same time. \"none\" disables the daemon."
+msgstr ""
+"ipvsadm může aktivovat synchronizačního daemona pro IPVS. \"hlavní\" tohoto "
+"daemona spustí v hlavním režimu, \"záložní\" jej spustí v záložním režimu, "
+"\"oboje\" použije současně záložní i hlavní režim. \"žádný\" daemona zakáže."
+
+#. Type: select
+#. Description
+#: ../ipvsadm.templates:2002
+msgid "See the ipvsadm(8) man page for more details."
+msgstr "Pro další informace se podívejte do manuálové stránky ipvsadm(8)."
+
+#. Type: error
+#. Description
+#: ../ipvsadm.templates:3001
+msgid "Kernel does not support IPVS"
+msgstr "Jádro nepodporuje IPVS"
+
+#. Type: error
+#. Description
+#: ../ipvsadm.templates:3001
+msgid ""
+"ipvsadm is useless with this kernel, since it has been built with "
+"CONFIG_IP_VS=n. Please use a kernel compiled with IPVS support."
+msgstr ""
+"ipvsadm je s tímto jádrem k ničemu, protože bylo sestaveno s volbou "
+"CONFIG_IP_VS=n. Použijte prosím jádro zkompilované s podporou IPVS."
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:4001
+msgid "Do you want to automatically load IPVS rules on boot?"
+msgstr "Chcete nahrávat IPVS pravidla automaticky při zavedení?"
+
+#. Type: boolean
+#. Description
+#: ../ipvsadm.templates:4001
+msgid ""
+"If you choose this option, IPVS rules will be loaded from /etc/ipvsadm.rules "
+"automatically on boot."
+msgstr ""
+"Pokud zvolíte tuto možnost, při zavedení se automaticky nahrají IPVS "
+"pravidla ze souboru /etc/ipvsadm.rules."
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:5001
+msgid "Multicast interface for ipvsadm:"
+msgstr "Vícesměrové rozhraní pro ipvsadm:"
+
+#. Type: string
+#. Description
+#: ../ipvsadm.templates:5001
+msgid ""
+"Please specify the multicast interface to be used by the synchronization "
+"daemon."
+msgstr ""
+"Zadejte prosím vícesměrové rozhraní, které má synchronizační daemon používat."

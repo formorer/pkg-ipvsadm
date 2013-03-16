@@ -1,0 +1,42 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
+Template: ipvsadm/daemon_method
+Type: select
+__Choices: none, master, backup, both
+Default: none
+_Description: Daemon method:
+ ipvsadm can activate the IPVS synchronization daemon. "master" starts this
+ daemon in master mode, "backup" starts it in backup mode, and "both" uses
+ master and backup modes at the same time. "none" disables the daemon.
+ .
+ See the ipvsadm(8) man page for more details.
+
+Template: ipvsadm/kernel_does_not_support_ipvs
+Type: error
+_Description: Kernel does not support IPVS
+ ipvsadm is useless with this kernel, since it has been built with CONFIG_IP_VS=n.
+ Please use a kernel compiled with IPVS support.
+
+Template: ipvsadm/auto_load_rules
+Type: boolean
+Default: false
+_Description: Do you want to automatically load IPVS rules on boot?
+ If you choose this option, IPVS rules will be loaded from
+ /etc/ipvsadm.rules automatically on boot.
+
+Template: ipvsadm/daemon_multicast_interface
+Type: string
+Default: eth0
+#flag:translate!:3
+_Description: Multicast interface for ipvsadm:
+ Please specify the multicast interface to be used by the synchronization
+ daemon.
+ .
+ ${interface_error}
