@@ -1,0 +1,22 @@
+--- a/libipvs/ip_vs.h
++++ b/libipvs/ip_vs.h
+@@ -413,7 +413,7 @@
+ 	__IPVS_CMD_ATTR_MAX,
+ };
+ 
+-#define IPVS_CMD_ATTR_MAX (__IPVS_SVC_ATTR_MAX - 1)
++#define IPVS_CMD_ATTR_MAX (__IPVS_CMD_ATTR_MAX - 1)
+ 
+ /*
+  * Attributes used to describe a service
+--- a/libipvs/ip_vs_nl_policy.c
++++ b/libipvs/ip_vs_nl_policy.c
+@@ -26,6 +26,8 @@
+ 	[IPVS_SVC_ATTR_TIMEOUT]		= { .type = NLA_U32 },
+ 	[IPVS_SVC_ATTR_NETMASK]		= { .type = NLA_U32 },
+ 	[IPVS_SVC_ATTR_STATS]		= { .type = NLA_NESTED },
++    [IPVS_SVC_ATTR_PE_NAME]         = { .type = NLA_STRING,
++                        .maxlen = IP_VS_PENAME_MAXLEN},
+ };
+ 
+ struct nla_policy ipvs_dest_policy[IPVS_DEST_ATTR_MAX + 1] = {

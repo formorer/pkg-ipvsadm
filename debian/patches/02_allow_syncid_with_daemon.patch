@@ -1,13 +1,7 @@
-#! /bin/sh /usr/share/dpatch/dpatch-run
-## 02_allow_syncid_with_daemon.dpatch by Alexander Wirt <formorer@debian.org>
-##
-## All lines beginning with `## DP:' are a description of the patch.
-## DP: No description.
-
-@DPATCH@
-diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' pkg-ipvsadm~/ipvsadm.c pkg-ipvsadm/ipvsadm.c
---- pkg-ipvsadm~/ipvsadm.c	2011-11-10 08:49:00.000000000 +0100
-+++ pkg-ipvsadm/ipvsadm.c	2012-02-22 21:52:21.484434869 +0100
+Author: Alexander Wirt <formorer@debian.org>
+Description: No description.
+--- a/ipvsadm.c
++++ b/ipvsadm.c
 @@ -230,7 +230,7 @@
  /*DELSRV*/  {'x', 'x', '+', 'x', 'x', 'x', '+', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},
  /*EDITSRV*/ {'x', 'x', '+', 'x', 'x', 'x', '+', ' ', ' ', ' ', ' ', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'},

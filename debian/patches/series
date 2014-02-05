@@ -1,0 +1,4 @@
+libnl-3-linking
+01_fix_popt_multiarch.patch
+02_allow_syncid_with_daemon.patch
+04_fix_displayed_nodes.patch

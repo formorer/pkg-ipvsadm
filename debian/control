@@ -2,19 +2,23 @@ Source: ipvsadm
 Section: net
 Priority: extra
 Maintainer: Alexander Wirt <formorer@debian.org>
-Standards-Version: 3.9.2
-Build-Depends: debhelper (>= 7.0.50~), libpopt-dev, po-debconf, libnl-dev, dpatch (>= 2.0.32~)
+Standards-Version: 3.9.4
+Build-Depends: debhelper (>= 9),
+               libnl-3-dev,
+               libpopt-dev,
+               po-debconf
 
 Package: ipvsadm
 Architecture: any
-Depends: ${shlibs:Depends}, ${misc:Depends}, lsb-base (>= 3.0-6)
+Depends: lsb-base (>= 3.0-6), ${misc:Depends}, ${shlibs:Depends}
 Conflicts: lvs
 Replaces: lvs
 Suggests: heartbeat, keepalived, ldirectord
 Description: Linux Virtual Server support programs
  The Linux Virtual Server (lvs or IPVS) is a highly scalable and highly
  available server built on a cluster of real servers. The architecture of the
- cluster is transparent to end users, who see only a single virtual server.
+ cluster is transparent to end users, and the users see only a single virtual
+ server.
  .
  This package provides some support programs necessary to implement a virtual
  server under Linux. With the addition of the mon and heartbeat packages it is
