@@ -5,7 +5,9 @@ Maintainer: Alexander Wirt <formorer@debian.org>
 Standards-Version: 3.9.4
 Build-Depends: debhelper (>= 9),
                libnl-3-dev,
+               libnl-genl-3-dev,
                libpopt-dev,
+               pkg-config,
                po-debconf
 
 Package: ipvsadm
