@@ -18,7 +18,7 @@
 IPVSADM="/sbin/ipvsadm"
 IPVSADM_RULES="/etc/ipvsadm.rules"
 IPVSADM_CONFIG="/etc/default/ipvsadm"
-SYNCID="1"
+SYNCID="0"
 
 AUTO="false"
 DAEMON="none"		# none|master|backup|both
@@ -29,14 +29,17 @@ start () {
     case $DAEMON in
 	master|backup)
 	    log_daemon_msg "Starting IPVS Connection Synchronization Daemon" "$DAEMON"
-	    $IPVSADM --start-daemon $DAEMON --mcast-interface $IFACE || log_end_msg 1
+	    $IPVSADM --syncid $SYNCID --start-daemon $DAEMON --mcast-interface \
+        $IFACE --syncid $SYNCID || log_end_msg 1
 	    log_end_msg 0
 	    ;;
 	both)
 	    log_daemon_msg "Starting IPVS Connection Synchronization Daemon" "master"
-	    $IPVSADM --start-daemon master --mcast-interface $IFACE || FAILURE=1
+	    $IPVSADM --syncid $SYNCID --start-daemon master --mcast-interface \
+        $IFACE --syncid $SYNCID  || FAILURE=1
 	    log_progress_msg "backup"
-	    $IPVSADM --start-daemon backup --mcast-interface $IFACE || FAILURE=1
+	    $IPVSADM --syncid $SYNCID --start-daemon backup --mcast-interface \
+        $IFACE --syncid $SYNCID || FAILURE=1
 	    if [ "$FAILURE" -eq 1 ]
 	    then
 		log_end_msg 1
