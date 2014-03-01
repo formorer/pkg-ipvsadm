@@ -1,4 +1,4 @@
-ipvsadm (1:1.26-3) UNRELEASED; urgency=medium
+ipvsadm (1:1.26-3) unstable; urgency=medium
 
   * [8fe73cf] Move to quilt 3.0
   * [9ae82d1] wrap-and-sort
@@ -16,7 +16,7 @@ ipvsadm (1:1.26-3) UNRELEASED; urgency=medium
   * [41027f9] Bump standards version (no changes)
   * [d0c8111] Add a patch to support LDFLAGS in Makefile. This adds support for hardening.
 
- -- Alexander Wirt <formorer@debian.org>  Sat, 01 Mar 2014 23:28:24 +0100
+ -- Alexander Wirt <formorer@debian.org>  Sat, 01 Mar 2014 23:36:46 +0100
 
 ipvsadm (1:1.26-1) unstable; urgency=low
 
