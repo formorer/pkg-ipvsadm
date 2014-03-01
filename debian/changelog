@@ -1,3 +1,23 @@
+ipvsadm (1:1.26-3) UNRELEASED; urgency=medium
+
+  * [8fe73cf] Move to quilt 3.0
+  * [9ae82d1] wrap-and-sort
+  * [d8b7ba7] Move to debhelper compat v9
+  * [450ce1d] Remove obsolete dpatch patches
+  * [86caa7e] Remove obsolete templates
+  * [8c6fbd7] Bump standards version
+  * [6972aa0] Add deps for libnl3
+  * [9a354ee] Add syncid to default file (Closes: #649106)
+  * [f57062e] Build against libnl3 (Closes: #653021)
+  * [ebeed1d] Fix displayed nodes (Closes: #685495, #706680)
+  * [c0e7408] Imported Debian patch 1:1.26-2
+  * [25fb091] Revert "Imported Debian patch 1:1.26-2"
+  * [be1c118] Fix build-deps
+  * [41027f9] Bump standards version (no changes)
+  * [d0c8111] Add a patch to support LDFLAGS in Makefile. This adds support for hardening.
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 01 Mar 2014 23:28:24 +0100
+
 ipvsadm (1:1.26-1) unstable; urgency=low
 
   * [084f2b6] Imported Upstream version 1.26
