@@ -2,7 +2,7 @@
 #      ipvsadm - IP Virtual Server ADMinistration program
 #                for IPVS NetFilter Module in kernel 2.4
 #
-#      Version: $Id: Makefile 77 2011-02-08 00:23:51Z wensong $
+#      Version: $Id$
 #
 #      Authors: Wensong Zhang <wensong@linux-vs.org>
 #               Peter Kese <peter.kese@ijs.si>
@@ -62,26 +62,16 @@ RPMBUILD = $(shell				\
 		echo "/bin/rpm";		\
 	fi )
 
-ifeq (,$(FORCE_GETOPT))
-LIB_SEARCH = /lib64 /usr/lib64 /usr/local/lib64 /lib /usr/lib /usr/local/lib
-POPT_LIB = $(shell for i in $(LIB_SEARCH); do \
-  if [ -f $$i/libpopt.a ]; then \
-    if nm $$i/libpopt.a | fgrep -q poptGetContext; then \
-	echo "-lpopt"; \
-	break; \
-    fi; \
-  fi; \
-done)
-endif
-
-ifneq (,$(POPT_LIB))
-POPT_DEFINE = -DHAVE_POPT
-endif
-
 OBJS		= ipvsadm.o config_stream.o dynamic_array.o
-LIBS		= $(POPT_LIB)
+LIBS		= -lpopt
 ifneq (0,$(HAVE_NL))
-LIBS		+= -lnl
+LIBS		+= $(shell \
+		if which pkg-config > /dev/null 2>&1; then \
+		  if   pkg-config --libs libnl-genl-3.0  2> /dev/null; then :;\
+		  elif pkg-config --libs libnl-2.0       2> /dev/null; then :;\
+		  elif pkg-config --libs libnl-1         2> /dev/null; then :;\
+		  fi; \
+		else echo "-lnl"; fi)
 endif
 DEFINES		= -DVERSION=\"$(VERSION)\" -DSCHEDULERS=\"$(SCHEDULERS)\" \
 		  -DPE_LIST=\"$(PE_LIST)\" $(POPT_DEFINE)
