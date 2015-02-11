@@ -1,5 +1,0 @@
-01_fix_popt_multiarch.patch
-02_allow_syncid_with_daemon.patch
-03_libnl-3-linking.patch
-04_fix_displayed_nodes.patch
-05_addldflags_to_makefile
