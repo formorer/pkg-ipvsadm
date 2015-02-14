@@ -3,6 +3,8 @@ Section: net
 Priority: extra
 Maintainer: Alexander Wirt <formorer@debian.org>
 Standards-Version: 3.9.6
+Vcs-Browser: https://github.com/formorer/pkg-ipvsadm
+Vcs-Git: https://github.com/formorer/pkg-ipvsadm.git
 Build-Depends: debhelper (>= 9),
                libnl-3-dev,
                libnl-genl-3-dev,
