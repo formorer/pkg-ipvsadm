@@ -1,3 +1,10 @@
+ipvsadm (1:1.28-2) experimental; urgency=medium
+
+  * [2c4e022] Update watch file
+  * [4c4c557] Add VCS header
+
+ -- Alexander Wirt <formorer@debian.org>  Sat, 14 Feb 2015 06:41:14 +0100
+
 ipvsadm (1:1.28-1) experimental; urgency=medium
 
   * [dfdf261] Imported Upstream version 1.28
