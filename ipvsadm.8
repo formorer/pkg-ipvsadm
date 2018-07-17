@@ -59,7 +59,7 @@ ipvsadm \- Linux Virtual Server administration
 .br
 .B ipvsadm --set \fItcp\fP \fItcpfin\fP \fIudp\fP
 .br
-.B ipvsadm --start-daemon \fIstate\fP [--mcast-interface \fIinterface\fP]
+.B ipvsadm --start-daemon \fIstate\fP [daemon-options]
 .ti 15
 .B [--syncid \fIsyncid\fP]
 .br
@@ -167,7 +167,7 @@ balancer fails, a backup load balancer will takeover, and it has state
 of almost all connections, so that almost all established connections
 can continue to access the service.
 .PP
-The sync daemon currently only supports IPv4 connections.
+The sync daemon supports IPv4 and IPv6 connections.
 .TP
 .B --stop-daemon
 Stop the connection synchronization daemon.
@@ -359,18 +359,6 @@ connections drops below its lower connection threshold. If
 will receive new connections when the number of its connections drops
 below three forth of its upper connection threshold.
 .TP
-.B --mcast-interface \fIinterface\fP
-Specify the multicast interface that the sync master daemon sends
-outgoing multicasts through, or the sync backup daemon listens to for
-multicasts.
-.TP
-.B --syncid \fIsyncid\fP
-Specify the \fIsyncid\fP that the sync master daemon fills in the
-SyncID header while sending multicast messages, or the sync backup
-daemon uses to filter out multicast messages not matched with the
-SyncID value. The valid values of \fIsyncid\fP are 0 through to
-255. The default is 0, which means no filtering at all.
-.TP
 .B -c, --connection
 Connection output. The \fIlist\fP command with this option will list
 current IPVS connections.
@@ -438,6 +426,45 @@ One-packet scheduling.
 Used in conjunction with a UDP virtual service or
 a fwmark virtual service that handles only UDP packets.
 All connections are created such that they only schedule one packet.
+.SS PARAMETERS FOR SYNCHRONIZATION DAEMON
+The --start-daemon requires zero or more of the following
+parameters.
+.TP
+.B --syncid \fIsyncid\fP
+Specify the \fIsyncid\fP that the sync master daemon fills in the
+SyncID header while sending multicast messages, or the sync backup
+daemon uses to filter out multicast messages not matched with the
+SyncID value. The valid values of \fIsyncid\fP are 0 through to
+255. The default is 0, which means no filtering at all.
+.TP
+.B --sync-maxlen \fIlength\fP
+Specify the desired length of sync messages (UDP payload size).
+It is expected that backup server will use value not less than
+the used value in master server.
+The valid values of \fIlength\fP are in the 1 .. (65535 - 20 - 8)
+range but the kernel ensures a space for at least one sync message.
+If value is lower than MTU the sync messages will be fragmented by
+IP layer.
+The default value is derived from the MTU value when daemon is started
+but master daemon will not default to value above 1500 for compatibility
+reasons.
+.TP
+.B --mcast-interface \fIinterface\fP
+Specify the multicast interface that the sync master daemon sends
+outgoing multicasts through, or the sync backup daemon listens to for
+multicasts.
+.TP
+.B --mcast-group \fIaddress\fP
+Specify IPv4 or IPv6 multicast address for the sync messages.
+The default value is 224.0.0.81.
+.TP
+.B --mcast-port \fIport\fP
+Specify the UDP port for sync messages.
+The default value is 8848.
+.TP
+.B --mcast-ttl \fIttl\fP
+Specify the TTL value for sync messages (1 .. 255).
+The default value is 1.
 .SH EXAMPLE 1 - Simple Virtual Service
 The following commands configure a Linux Director to distribute
 incoming requests addressed to port 80 on 207.175.44.110 equally to
