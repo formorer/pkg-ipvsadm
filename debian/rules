@@ -9,10 +9,6 @@ include /usr/share/dpkg/buildflags.mk
 CFLAGS +=  -DLIBIPVS_USE_NL
 
 %:
-	dh  $@
+	dh  $@ --no-parallel
 
 override_dh_auto_install::
- 
-override_dh_auto_clean:
-	dh_auto_clean
-	-rm debian/files
